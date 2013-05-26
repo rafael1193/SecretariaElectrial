@@ -39,7 +39,10 @@ public partial class MainWindow: Gtk.Window
                 {
                     throw new System.IO.IOException();
                 }
-            }
+            }else
+			{
+				preferencesAction.Activate();
+			}
         } catch (Exception ex)
         {
             preferencesAction.Activate();
