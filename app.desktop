@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Secretaría Electrial
+Exec=secretaria-electrial
+Icon=electrial
+Terminal=false
+GenericName=Software de registro para secretarías
+Categories=Database;Office;
