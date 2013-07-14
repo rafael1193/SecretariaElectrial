@@ -6,22 +6,28 @@ namespace SecretariaDataBase
     public partial class PreferencesDialog : Gtk.Dialog
     {
         SortedList <string, List<SecretariaDataBase.FileSystem.Box>> boxList;
-        Dictionary<string,string> preferences;
+        SettingsManager settings;
+		public bool canCancel = true;
 
         public SortedList <string, List<SecretariaDataBase.FileSystem.Box>> BoxList
         {
             get{ return boxList;}
         }
 
-        public PreferencesDialog(MainWindow parent)
-        {
-            this.Build();
+        public PreferencesDialog (MainWindow parent, bool firstRun)
+		{
+			this.Build ();
 
-            preferences = parent.Preferences;
+			canCancel = !firstRun;
 
-            if (preferences.ContainsKey(ConfigKeys.LastFileSystem.ToString()))
+			settings = parent.settings;
+			if (canCancel == false) {
+				buttonCancel.Sensitive = false;
+			}
+
+            if (settings.ExistsKey(SettingsManager.PresetKeys.LastFileSystem.ToString()))
             {
-                filechooserbutton1.SetFilename(preferences [ConfigKeys.LastFileSystem.ToString()]);
+                filechooserbutton1.SetFilename(settings.Get (SettingsManager.PresetKeys.LastFileSystem.ToString()));
             }
         }
 
@@ -31,29 +37,16 @@ namespace SecretariaDataBase
             {
                 if (!string.IsNullOrEmpty(filechooserbutton1.Filename))
                 {
-                    boxList = SecretariaDataBase.FileSystem.IO.ReadFilesystem(filechooserbutton1.Filename);
-
-                    if (!preferences.ContainsKey(ConfigKeys.LastFileSystem.ToString()))
-                    {
-                        preferences.Add(ConfigKeys.LastFileSystem.ToString(), filechooserbutton1.Filename);
-                    } else
-                    {
-                        preferences [ConfigKeys.LastFileSystem.ToString()] = filechooserbutton1.Filename;
-                    }
-
+					settings.Set(SettingsManager.PresetKeys.LastFileSystem.ToString(), filechooserbutton1.Filename);
+					boxList = SecretariaDataBase.FileSystem.IO.ReadFilesystem (settings.Get (SettingsManager.PresetKeys.LastFileSystem.ToString ()));
                     Respond(Gtk.ResponseType.Ok);
                 }
             } 
-//            catch (Exception ex)
-//            {
-//
-//            }
-            finally
+            catch (Exception ex)
             {
+
             }
-
         }
-
     }
 }
 

@@ -187,6 +187,7 @@
   <widget class="Gtk.Dialog" id="SecretariaDataBase.NewRecord" design-size="395 344">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Nuevo registro</property>
+    <property name="Icon">resource:SecretariaDataBase.logo-ico</property>
     <property name="TypeHint">Dialog</property>
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Modal">True</property>
@@ -252,7 +253,7 @@
               <widget class="Gtk.Entry" id="idEntry">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="IsEditable">False</property>
+                <property name="IsEditable">True</property>
                 <property name="InvisibleChar">•</property>
               </widget>
               <packing>
@@ -428,6 +429,7 @@
   <widget class="Gtk.Dialog" id="SecretariaDataBase.NewBox" design-size="316 147">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Nueva categoría</property>
+    <property name="Icon">resource:SecretariaDataBase.logo-ico</property>
     <property name="TypeHint">Dialog</property>
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Modal">True</property>
