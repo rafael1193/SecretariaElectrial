@@ -22,6 +22,7 @@ namespace SecretariaDataBase
 			// Widget SecretariaDataBase.NewBox
 			this.Name = "SecretariaDataBase.NewBox";
 			this.Title = global::Mono.Unix.Catalog.GetString ("Nueva categoría");
+			this.Icon = global::Gdk.Pixbuf.LoadFromResource ("SecretariaDataBase.logo-ico");
 			this.TypeHint = ((global::Gdk.WindowTypeHint)(1));
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			this.Modal = true;
@@ -55,7 +56,6 @@ namespace SecretariaDataBase
 			this.inRadiobutton = new global::Gtk.RadioButton (global::Mono.Unix.Catalog.GetString ("Entrada"));
 			this.inRadiobutton.CanFocus = true;
 			this.inRadiobutton.Name = "inRadiobutton";
-			this.inRadiobutton.Active = true;
 			this.inRadiobutton.DrawIndicator = true;
 			this.inRadiobutton.UseUnderline = true;
 			this.inRadiobutton.Group = new global::GLib.SList (global::System.IntPtr.Zero);

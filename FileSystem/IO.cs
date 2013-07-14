@@ -19,10 +19,11 @@ namespace SecretariaDataBase.FileSystem
 
         public static SortedList<string, List<Box>> ReadFilesystem(string databasePath)
         {
-            var yearDirectories = System.IO.Directory.EnumerateDirectories(databasePath);
-            if (yearDirectories == null)
+            List<string> yearDirectories = new List<string>(System.IO.Directory.EnumerateDirectories(databasePath));
+            if (yearDirectories.Count < 1)
             {
-                return null;
+				CreateFileSystem(databasePath);
+				yearDirectories = new List<string>(System.IO.Directory.EnumerateDirectories(databasePath));
             }
             SortedList <string, List<Box>> boxList = new SortedList<string, List<Box>>();
 
@@ -75,6 +76,11 @@ namespace SecretariaDataBase.FileSystem
 
             return boxList;
         }
+
+		public static void CreateFileSystem (string databasePath)
+		{
+			System.IO.Directory.CreateDirectory(System.IO.Path.Combine(databasePath,DateTime.Now.Year.ToString()));
+		}
 
         public static void CreateNewDocument(string year, Box containingBox, Document newDoc)
         {

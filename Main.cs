@@ -12,6 +12,7 @@ namespace SecretariaDataBase
             MainWindow win = new MainWindow();
             win.Show();
             Application.Run();
+
         }
     }
 }

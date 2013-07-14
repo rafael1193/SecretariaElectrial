@@ -22,6 +22,7 @@ namespace SecretariaDataBase
 			// Widget SecretariaDataBase.NewRecord
 			this.Name = "SecretariaDataBase.NewRecord";
 			this.Title = global::Mono.Unix.Catalog.GetString ("Nuevo registro");
+			this.Icon = global::Gdk.Pixbuf.LoadFromResource ("SecretariaDataBase.logo-ico");
 			this.TypeHint = ((global::Gdk.WindowTypeHint)(1));
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			this.Modal = true;
@@ -62,7 +63,7 @@ namespace SecretariaDataBase
 			this.idEntry = new global::Gtk.Entry ();
 			this.idEntry.CanFocus = true;
 			this.idEntry.Name = "idEntry";
-			this.idEntry.IsEditable = false;
+			this.idEntry.IsEditable = true;
 			this.idEntry.InvisibleChar = '•';
 			this.table1.Add (this.idEntry);
 			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.idEntry]));
