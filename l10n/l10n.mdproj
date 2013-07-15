@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ItemType>TranslationProject</ItemType>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{66DDC541-470C-45D0-9B76-0E54AB38E19B}</ProjectGuid>
+    <relPath>locale</relPath>
+    <outputType>RelativeToOutput</outputType>
+    <packageName>l10n</packageName>
+    <translations>
+      <translations>
+        <Translation isoCode="en" />
+        <Translation isoCode="es" />
+        <Translation isoCode="fr" />
+      </translations>
+    </translations>
+  </PropertyGroup>
+</Project>

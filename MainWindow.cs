@@ -1,3 +1,21 @@
+/*
+ * Secretaría Electrial
+ * Copyright (C) 2013  Rafael Bailón-Ruiz <rafaebailon@ieee.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 using System;
 using Gtk;
 using System.Collections.Generic;
@@ -79,7 +97,6 @@ public partial class MainWindow: Gtk.Window
 			model.GetValue (iter, column, ref val);
 			//currentSelectedItemPath = model.GetPath(iter).ToString();
 			data = (string)val.Val;
-			System.Console.WriteLine (data); //DEBUG
 			val.Dispose ();
 		} 
 	}
@@ -93,22 +110,26 @@ public partial class MainWindow: Gtk.Window
 	private void PopulateTreeView ()
 	{
 		Gtk.TreeViewColumn nameColumn = new Gtk.TreeViewColumn ();
-		nameColumn.Title = "Documento";
+		//nameColumn.Title = "Documento";
+		nameColumn.Title = Mono.Unix.Catalog.GetString("Document");
 		Gtk.CellRendererText nameCell = new Gtk.CellRendererText ();
 		nameColumn.PackStart (nameCell, true);
 
 		Gtk.TreeViewColumn directionColumn = new Gtk.TreeViewColumn ();
-		directionColumn.Title = "Dirección";
+		//directionColumn.Title = "Type";
+		directionColumn.Title  = Mono.Unix.Catalog.GetString("Type");
 		Gtk.CellRendererText directionCell = new Gtk.CellRendererText ();
 		directionColumn.PackStart (directionCell, true);
 
 		Gtk.TreeViewColumn idColumn = new Gtk.TreeViewColumn ();
-		idColumn.Title = "Id";
+		//idColumn.Title = "Id";
+		idColumn.Title = Mono.Unix.Catalog.GetString("Id");
 		Gtk.CellRendererText idCell = new Gtk.CellRendererText ();
 		idColumn.PackStart (idCell, true);
 
 		Gtk.TreeViewColumn dateColumn = new Gtk.TreeViewColumn ();
-		dateColumn.Title = "Fecha";
+		//dateColumn.Title = "Fecha";
+		dateColumn.Title = Mono.Unix.Catalog.GetString("Date");
 		Gtk.CellRendererText dateCell = new Gtk.CellRendererText ();
 		dateColumn.PackStart (dateCell, true);
  
@@ -166,7 +187,6 @@ public partial class MainWindow: Gtk.Window
 			if (t.Length == 1) { //Si se ha seleccionado un box
 				model.GetValue (iter, (int)SecretariaDataBase.Column.Name, ref val); //obtener name del box
 				data = (string)val.Val;
-				System.Console.WriteLine (data); //DEBUG
 
 				if (currentBoxList != null) {
 					SecretariaDataBase.FileSystem.Box b = boxList [currentBoxList].Find (x => {
@@ -179,10 +199,9 @@ public partial class MainWindow: Gtk.Window
 
 					if (b != null) {
 						string p = System.IO.Path.Combine (System.Environment.CurrentDirectory, b.FolderName);
-						Gtk.MessageDialog msg = new MessageDialog (this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.YesNo, true, "Esta operación <b>destruirá todos los archivos</b> en:\n" + p + "\ny <b>no se puede deshacer</b>.\n¿Está seguro de que desea continuar?");
+						string messageString = Mono.Unix.Catalog.GetString("This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not be undone</b>. Are you sure you want to continue?");
+						Gtk.MessageDialog msg = new MessageDialog (this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.YesNo, true, string.Format(messageString,p));
 						if ((ResponseType)msg.Run () == ResponseType.Yes) {
-							System.Console.WriteLine ("Eliminar!");
-
 							SecretariaDataBase.FileSystem.IO.DestroyBox (currentBoxList, boxList [currentBoxList], b);
 							UpdateTreeView (boxList [currentBoxList]);
 						}
@@ -194,7 +213,6 @@ public partial class MainWindow: Gtk.Window
 			if (t.Length == 2) { //Si se ha seleccionado un documento
 				model.GetValue (iter, (int)SecretariaDataBase.Column.Id, ref val); //obtener id del documento
 				data = (string)val.Val;
-				System.Console.WriteLine (data); //DEBUG
 
 				if (currentBoxList != null) {
 					SecretariaDataBase.FileSystem.Document doc = boxList [currentBoxList] [int.Parse (t [0])].Documents.Find (x => {
@@ -207,9 +225,9 @@ public partial class MainWindow: Gtk.Window
 
 					if (doc != null) {
 						string p = System.IO.Path.Combine (System.Environment.CurrentDirectory, boxList [currentBoxList] [int.Parse (t [0])].FolderName, doc.Name);
-						Gtk.MessageDialog msg = new MessageDialog (this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.YesNo, true, "Esta operación <b>destruirá todos los archivos</b> en:\n" + p + "\ny <b>no se puede deshacer</b>.\n¿Está seguro de que desea continuar?");
+						string messageString = Mono.Unix.Catalog.GetString("This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not be undone</b>. Are you sure you want to continue?");
+						Gtk.MessageDialog msg = new MessageDialog (this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.YesNo, true, string.Format(messageString,p));
 						if ((ResponseType)msg.Run () == ResponseType.Yes) {
-							System.Console.WriteLine ("Eliminar!");
 							SecretariaDataBase.FileSystem.IO.DestroyDocument (currentBoxList, boxList [currentBoxList] [int.Parse (t [0])], doc);
 							UpdateTreeView (boxList [currentBoxList]);
 						}
@@ -235,7 +253,6 @@ public partial class MainWindow: Gtk.Window
 			if (t.Length == 1) { //Si se ha seleccionado un box
 				model.GetValue (iter, (int)SecretariaDataBase.Column.Name, ref val); //obtener name del box
 				data = (string)val.Val;
-				System.Console.WriteLine (data); //DEBUG
 
 				if (currentBoxList != null) {
 					SecretariaDataBase.FileSystem.Box b = boxList [currentBoxList].Find (x => {
@@ -256,7 +273,6 @@ public partial class MainWindow: Gtk.Window
 			if (t.Length == 2) { //Si se ha seleccionado un documento
 				model.GetValue (iter, (int)SecretariaDataBase.Column.Id, ref val); //obtener id del documento
 				data = (string)val.Val;
-				System.Console.WriteLine (data); //DEBUG
 
 				if (currentBoxList != null) {
 					SecretariaDataBase.FileSystem.Document doc = boxList [currentBoxList] [int.Parse (t [0])].Documents.Find (x => {
@@ -285,14 +301,10 @@ public partial class MainWindow: Gtk.Window
 			ResponseType resp = (ResponseType)nd.Run ();
         
 			if (resp == ResponseType.Ok) {
-				System.Console.WriteLine ("respuesta ok");
-
 				nd.SelectedBox.Documents.Insert (nd.InsertingPosition, nd.NewDocument);
 				SecretariaDataBase.FileSystem.IO.CreateNewDocument (currentBoxList, nd.SelectedBox, nd.NewDocument);
 
 				UpdateTreeView (boxList [currentBoxList]);
-			} else if (resp == ResponseType.Cancel) {
-				System.Console.WriteLine ("respuesta cancel");
 			}
 
 			nd.Destroy ();
@@ -304,9 +316,10 @@ public partial class MainWindow: Gtk.Window
 		Gtk.AboutDialog about = new AboutDialog ();
 		about.ProgramName = "Secretaría Electrial";
 		about.Authors = new string[]{"Rafael Bailón-Ruiz <rafaelbailon@ieee.org>"};
+		about.TranslatorCredits = "English:\n\tRafael Bailón-Ruiz <rafaelbailon@ieee.org>\nEspañol:\n\tRafael Bailón-Ruiz <rafaelbailon@ieee.org>\nFrançais:\n\tRafael Bailón-Ruiz <rafaelbailon@ieee.org>";
 		about.Copyright = "Copyright © 2013 Asociación Electrial";
 		about.WebsiteLabel = "http://aselectrial.blogspot.com";
-		about.Version = "0.3";
+		about.Version = "0.4";
 		about.Icon = programIcon;
 		about.Logo = programIcon;
 		about.License = "This program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see <http://www.gnu.org/licenses/>.\n";
@@ -326,15 +339,12 @@ public partial class MainWindow: Gtk.Window
 			ResponseType resp = (ResponseType)nb.Run ();
         
 			if (resp == ResponseType.Ok) {
-				System.Console.WriteLine ("respuesta ok");
 				nb.CreatedBox.FolderName = System.IO.Path.Combine (currentBoxList, nb.CreatedBox.FolderName);
 				boxList [currentBoxList].Insert (nb.InsertingPosition, nb.CreatedBox);
 				SecretariaDataBase.FileSystem.IO.CreateBox (currentBoxList, nb.CreatedBox);
 
 				UpdateTreeView (boxList [currentBoxList]);
 
-			} else if (resp == ResponseType.Cancel) {
-				System.Console.WriteLine ("respuesta cancel");
 			}
 
 			nb.Destroy ();
@@ -350,7 +360,6 @@ public partial class MainWindow: Gtk.Window
 		}
 		ResponseType resp = (ResponseType)pd.Run ();
 			if (resp == ResponseType.Ok) {
-				System.Console.WriteLine ("respuesta ok");
 				if (boxList != null) {
 					//I don't know why, but deleting items twice is the only form of really delete all them
 					combobox1.Active = -1;
@@ -375,9 +384,7 @@ public partial class MainWindow: Gtk.Window
 					UpdateTreeView (boxList [currentBoxList]);
 
 			treeview1.Selection.Changed += OnTreeViewSelectionChanged;						
-			} else if (resp == ResponseType.Cancel) {
-				System.Console.WriteLine ("respuesta cancel");
-			}	
+			}
 
 		pd.Destroy ();
 	}
