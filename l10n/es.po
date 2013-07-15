@@ -1,0 +1,131 @@
+#
+# Rafael Bailón Ruiz <rafaelbailon@ieee.org>, 2013.
+# Rafael Bailón-Ruiz <rafaelbailon@ieee.org>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-15 17:30:39+0200\n"
+"PO-Revision-Date: 2013-07-15 17:32:06+0200\n"
+"Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.org>\n"
+"Language-Team: Español; Castellano\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: MonoDevelop Gettext addin\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../MainWindow.cs:12
+msgid "Document"
+msgstr "Documento"
+
+#: ../MainWindow.cs:13
+msgid "Type"
+msgstr "Tipo"
+
+#: ../MainWindow.cs:14
+msgid "Id"
+msgstr "Id"
+
+#: ../MainWindow.cs:15
+msgid "Date"
+msgstr "Fecha"
+
+#: ../MainWindow.cs:25
+#: ../MainWindow.cs:27
+msgid ""
+"This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not "
+"be undone</b>. Are you sure you want to continue?"
+msgstr ""
+"Esta operación <b>destruirá todos los archivos</b> en: \"{0}\" y <b>no se "
+"puede deshacer</b>. ¿Está seguro de continuar?"
+
+#: ../gtk-gui/MainWindow.cs:2
+#: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
+msgid "Nuevo registro"
+msgstr "Nuevo registro"
+
+#: ../gtk-gui/MainWindow.cs:2
+#: ../gtk-gui/SecretariaDataBase.PreferencesDialog.cs:1
+msgid "Preferencias"
+msgstr "Preferencias"
+
+#: ../gtk-gui/MainWindow.cs:2
+msgid "bfghdgdfgdf"
+msgstr ""
+
+#: ../gtk-gui/MainWindow.cs:2
+msgid "gdfgdfgdfg"
+msgstr ""
+
+#: ../gtk-gui/MainWindow.cs:2
+msgid "gdfgdfgdf"
+msgstr ""
+
+#: ../gtk-gui/MainWindow.cs:2
+msgid "Acerca de..."
+msgstr "Acerca de..."
+
+#: ../gtk-gui/MainWindow.cs:2
+#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
+msgid "Nueva categoría"
+msgstr "Nueva categoría"
+
+#: ../gtk-gui/MainWindow.cs:2
+msgid "Secretaría Electrial"
+msgstr "Secretaría Electrial"
+
+#: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
+msgid "Categoría:"
+msgstr "Categoría:"
+
+#: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
+#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
+msgid "Id:"
+msgstr "Id:"
+
+#: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
+#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
+msgid "Nombre:"
+msgstr "Nombre:"
+
+#: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
+msgid "Fecha de registro:"
+msgstr "Fecha de registro:"
+
+#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
+msgid "Tipo:"
+msgstr "Tipo:"
+
+#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
+msgid "Entrada"
+msgstr "Entrada"
+
+#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
+msgid "Salida"
+msgstr "Salida"
+
+#: ../gtk-gui/SecretariaDataBase.PreferencesDialog.cs:1
+msgid "Selecciona una Carpeta"
+msgstr "Selecciona una carpeta"
+
+#: ../gtk-gui/SecretariaDataBase.PreferencesDialog.cs:1
+msgid "Registro:"
+msgstr "Registro:"
+
+#: ../gtk-gui/SecretariaDataBase.PreferencesDialog.cs:1
+msgid "<b>Archivos</b>"
+msgstr "<b>Archivos</b>"
+
+#~ msgid "Direction"
+#~ msgstr "Dirección"
+
+#~ msgid "delete-warning-message"
+#~ msgstr ""
+#~ "Esta operación <b>destruirá todos los archivos</b> en:\n"
+#~ "{0}\n"
+#~ "y <b>no se puede deshacer</b>.\n"
+#~ "¿Está seguro de que desea continuar?"
+

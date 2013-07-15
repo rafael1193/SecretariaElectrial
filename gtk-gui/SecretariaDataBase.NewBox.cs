@@ -56,6 +56,7 @@ namespace SecretariaDataBase
 			this.inRadiobutton = new global::Gtk.RadioButton (global::Mono.Unix.Catalog.GetString ("Entrada"));
 			this.inRadiobutton.CanFocus = true;
 			this.inRadiobutton.Name = "inRadiobutton";
+			this.inRadiobutton.Active = true;
 			this.inRadiobutton.DrawIndicator = true;
 			this.inRadiobutton.UseUnderline = true;
 			this.inRadiobutton.Group = new global::GLib.SList (global::System.IntPtr.Zero);
