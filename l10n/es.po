@@ -1,13 +1,9 @@
-#
-# Rafael Bailón Ruiz <rafaelbailon@ieee.org>, 2013.
-# Rafael Bailón-Ruiz <rafaelbailon@ieee.org>, 2013.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-15 17:30:39+0200\n"
-"PO-Revision-Date: 2013-07-15 17:32:06+0200\n"
+"POT-Creation-Date: 2013-07-15 21:42:34+0200\n"
+"PO-Revision-Date: 2013-07-15 22:15:26+0200\n"
 "Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.org>\n"
 "Language-Team: Español; Castellano\n"
 "Language: es\n"
@@ -17,24 +13,24 @@ msgstr ""
 "X-Generator: MonoDevelop Gettext addin\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../MainWindow.cs:12
+#: ../MainWindow.cs:13
 msgid "Document"
 msgstr "Documento"
 
-#: ../MainWindow.cs:13
+#: ../MainWindow.cs:14
 msgid "Type"
 msgstr "Tipo"
 
-#: ../MainWindow.cs:14
+#: ../MainWindow.cs:15
 msgid "Id"
 msgstr "Id"
 
-#: ../MainWindow.cs:15
+#: ../MainWindow.cs:16
 msgid "Date"
 msgstr "Fecha"
 
-#: ../MainWindow.cs:25
-#: ../MainWindow.cs:27
+#: ../MainWindow.cs:26
+#: ../MainWindow.cs:28
 msgid ""
 "This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not "
 "be undone</b>. Are you sure you want to continue?"
@@ -76,6 +72,10 @@ msgstr "Nueva categoría"
 #: ../gtk-gui/MainWindow.cs:2
 msgid "Secretaría Electrial"
 msgstr "Secretaría Electrial"
+
+#: ../gtk-gui/MainWindow.cs:2
+msgid "Send by email"
+msgstr "Enviar por email"
 
 #: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
 msgid "Categoría:"

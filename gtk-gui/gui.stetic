@@ -8,6 +8,13 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/secretaria-electrial.exe" internal="true" />
   </import>
+  <icon-factory>
+    <icon-set id="Send by email">
+      <source>
+        <property name="Image">stock:stock_mail-send Button</property>
+      </source>
+    </icon-set>
+  </icon-factory>
   <widget class="Gtk.Window" id="MainWindow" design-size="701 432">
     <action-group name="Default">
       <action id="newAction">
@@ -127,7 +134,7 @@
                 <child>
                   <widget class="Gtk.VButtonBox" id="vbuttonbox1">
                     <property name="MemberName" />
-                    <property name="Size">2</property>
+                    <property name="Size">3</property>
                     <property name="LayoutStyle">Start</property>
                     <child>
                       <widget class="Gtk.Button" id="button22">
@@ -156,6 +163,21 @@
                       </widget>
                       <packing>
                         <property name="Position">1</property>
+                        <property name="Expand">False</property>
+                        <property name="Fill">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.Button" id="emailButton">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="Type">TextAndIcon</property>
+                        <property name="Icon">stock:stock_mail-send Button</property>
+                        <property name="Label" translatable="yes">Send by email</property>
+                        <signal name="Clicked" handler="OnEmailButtonClicked" />
+                      </widget>
+                      <packing>
+                        <property name="Position">2</property>
                         <property name="Expand">False</property>
                         <property name="Fill">False</property>
                       </packing>

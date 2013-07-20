@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-07-15 17:30:39+0200\n"
-"PO-Revision-Date: 2013-07-15 17:30:39+0200\n"
+"POT-Creation-Date: 2013-07-15 22:16:15+0200\n"
+"PO-Revision-Date: 2013-07-15 22:16:15+0200\n"
 "Last-Translator: rafael\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -10,24 +10,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: MonoDevelop Gettext addin\n"
 
-#: ../MainWindow.cs:12
+#: ../MainWindow.cs:13
 msgid "Document"
 msgstr ""
 
-#: ../MainWindow.cs:13
+#: ../MainWindow.cs:14
 msgid "Type"
 msgstr ""
 
-#: ../MainWindow.cs:14
+#: ../MainWindow.cs:15
 msgid "Id"
 msgstr ""
 
-#: ../MainWindow.cs:15
+#: ../MainWindow.cs:16
 msgid "Date"
 msgstr ""
 
-#: ../MainWindow.cs:25
-#: ../MainWindow.cs:27
+#: ../MainWindow.cs:26
+#: ../MainWindow.cs:28
 msgid ""
 "This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not "
 "be undone</b>. Are you sure you want to continue?"
@@ -66,6 +66,10 @@ msgstr ""
 
 #: ../gtk-gui/MainWindow.cs:2
 msgid "Secretaría Electrial"
+msgstr ""
+
+#: ../gtk-gui/MainWindow.cs:2
+msgid "Send by email"
 msgstr ""
 
 #: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1

@@ -298,6 +298,7 @@ public partial class MainWindow: Gtk.Window
 		if (boxList != null) {
 			SecretariaDataBase.NewRecord nd = new SecretariaDataBase.NewRecord (boxList [currentBoxList]);
 			nd.Icon = programIcon;
+			nd.TransientFor = this;
 			ResponseType resp = (ResponseType)nd.Run ();
         
 			if (resp == ResponseType.Ok) {
@@ -324,7 +325,7 @@ public partial class MainWindow: Gtk.Window
 		about.Logo = programIcon;
 		about.License = "This program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see <http://www.gnu.org/licenses/>.\n";
 		about.Modal = true;
-
+		about.TransientFor = this;
 		if ((ResponseType)about.Run () == ResponseType.Cancel) {
 
 		}
@@ -336,6 +337,7 @@ public partial class MainWindow: Gtk.Window
 		if (boxList != null) {
 			SecretariaDataBase.NewBox nb = new SecretariaDataBase.NewBox (boxList [currentBoxList]);
 			nb.Icon = programIcon;
+			nb.TransientFor = this;
 			ResponseType resp = (ResponseType)nb.Run ();
         
 			if (resp == ResponseType.Ok) {
@@ -355,6 +357,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		SecretariaDataBase.PreferencesDialog pd = new SecretariaDataBase.PreferencesDialog (this, firstrun);
 		pd.Icon = programIcon;
+		pd.TransientFor = this;
 		if (firstrun) {
 			pd.canCancel = false;
 		}
@@ -388,5 +391,13 @@ public partial class MainWindow: Gtk.Window
 
 		pd.Destroy ();
 	}
+
+	protected void OnEmailButtonClicked (object sender, EventArgs e)
+	{
+
+		System.Diagnostics.Process.Start("xdg-email","");
+
+	}
+
 }
 
