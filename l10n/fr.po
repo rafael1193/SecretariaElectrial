@@ -1,12 +1,13 @@
 #
-# rafael <>, 2013.
+#
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-07-15 17:30:39+0200\n"
-"PO-Revision-Date: 2013-07-15 17:32:06+0200\n"
-"Last-Translator: rafael\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-15 22:16:15+0200\n"
+"PO-Revision-Date: 2013-07-15 22:15:13+0200\n"
+"Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.org>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -14,33 +15,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: MonoDevelop Gettext addin\n"
 
-#: ../MainWindow.cs:12
+#: ../MainWindow.cs:13
 msgid "Document"
 msgstr "Document"
 
-#: ../MainWindow.cs:13
+#: ../MainWindow.cs:14
 msgid "Type"
 msgstr "Type"
 
-#: ../MainWindow.cs:14
+#: ../MainWindow.cs:15
 msgid "Id"
 msgstr "Id"
 
-#: ../MainWindow.cs:15
+#: ../MainWindow.cs:16
 msgid "Date"
 msgstr "Date"
 
-#: ../MainWindow.cs:25
-#: ../MainWindow.cs:27
+#: ../MainWindow.cs:26 ../MainWindow.cs:28
 msgid ""
-"This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not "
-"be undone</b>. Are you sure you want to continue?"
+"This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can "
+"not be undone</b>. Are you sure you want to continue?"
 msgstr ""
-"Cette opération <b>détruira touts les fichiers</b> en: \"{0}\", et <b>ne peut "
-"pas être annulée</b>. Est-ce que vous êtes sûrs de continuer?"
+"Cette opération <b>détruira touts les fichiers</b> en: \"{0}\", et <b>ne "
+"peut pas être annulée</b>. Est-ce que vous êtes sûrs de continuer?"
 
-#: ../gtk-gui/MainWindow.cs:2
-#: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
+#: ../gtk-gui/MainWindow.cs:2 ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
 msgid "Nuevo registro"
 msgstr "Nouveau registre"
 
@@ -65,14 +64,17 @@ msgstr ""
 msgid "Acerca de..."
 msgstr "À propos de..."
 
-#: ../gtk-gui/MainWindow.cs:2
-#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
+#: ../gtk-gui/MainWindow.cs:2 ../gtk-gui/SecretariaDataBase.NewBox.cs:1
 msgid "Nueva categoría"
 msgstr "Nouvelle categorie"
 
 #: ../gtk-gui/MainWindow.cs:2
 msgid "Secretaría Electrial"
 msgstr "Secretaría Electrial"
+
+#: ../gtk-gui/MainWindow.cs:2
+msgid "Send by email"
+msgstr "Envoyer par email"
 
 #: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
 msgid "Categoría:"
@@ -118,4 +120,3 @@ msgstr "<b>Fichiers</b>"
 
 #~ msgid "Direction"
 #~ msgstr "Direction"
-

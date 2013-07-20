@@ -21,6 +21,7 @@ public partial class MainWindow
 	private global::Gtk.VButtonBox vbuttonbox1;
 	private global::Gtk.Button button22;
 	private global::Gtk.Button button23;
+	private global::Gtk.Button emailButton;
 	
 	protected virtual void Build ()
 	{
@@ -128,18 +129,42 @@ public partial class MainWindow
 		w7.Position = 1;
 		w7.Expand = false;
 		w7.Fill = false;
+		// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
+		this.emailButton = new global::Gtk.Button ();
+		this.emailButton.CanFocus = true;
+		this.emailButton.Name = "emailButton";
+		// Container child emailButton.Gtk.Container+ContainerChild
+		global::Gtk.Alignment w8 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+		// Container child GtkAlignment.Gtk.Container+ContainerChild
+		global::Gtk.HBox w9 = new global::Gtk.HBox ();
+		w9.Spacing = 2;
+		// Container child GtkHBox.Gtk.Container+ContainerChild
+		global::Gtk.Image w10 = new global::Gtk.Image ();
+		w10.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_mail-send", global::Gtk.IconSize.Button);
+		w9.Add (w10);
+		// Container child GtkHBox.Gtk.Container+ContainerChild
+		global::Gtk.Label w12 = new global::Gtk.Label ();
+		w12.LabelProp = global::Mono.Unix.Catalog.GetString ("Send by email");
+		w9.Add (w12);
+		w8.Add (w9);
+		this.emailButton.Add (w8);
+		this.vbuttonbox1.Add (this.emailButton);
+		global::Gtk.ButtonBox.ButtonBoxChild w16 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.emailButton]));
+		w16.Position = 2;
+		w16.Expand = false;
+		w16.Fill = false;
 		this.hbox2.Add (this.vbuttonbox1);
-		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbuttonbox1]));
-		w8.Position = 1;
-		w8.Expand = false;
-		w8.Fill = false;
+		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbuttonbox1]));
+		w17.Position = 1;
+		w17.Expand = false;
+		w17.Fill = false;
 		this.vbox1.Add (this.hbox2);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox2]));
-		w9.Position = 1;
+		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox2]));
+		w18.Position = 1;
 		this.vbox3.Add (this.vbox1);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.vbox1]));
-		w10.PackType = ((global::Gtk.PackType)(1));
-		w10.Position = 1;
+		global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.vbox1]));
+		w19.PackType = ((global::Gtk.PackType)(1));
+		w19.Position = 1;
 		this.Add (this.vbox3);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -155,5 +180,6 @@ public partial class MainWindow
 		this.combobox1.Changed += new global::System.EventHandler (this.OnCombobox1Changed);
 		this.button22.Clicked += new global::System.EventHandler (this.OnButton22Clicked);
 		this.button23.Clicked += new global::System.EventHandler (this.OnButton23Clicked);
+		this.emailButton.Clicked += new global::System.EventHandler (this.OnEmailButtonClicked);
 	}
 }
