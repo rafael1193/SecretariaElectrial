@@ -15,7 +15,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 using System;
 using Gtk;
 using System.Collections.Generic;
@@ -34,14 +33,10 @@ public partial class MainWindow: Gtk.Window
 	string currentBoxList;
 	string currentSelectedItemPath;
 
-	//Dictionary<string,string> preferences;
 	internal SettingsManager settings;
 	bool firstrun;
 
-//	public Dictionary<string,string> Preferences {
-//		get{ return preferences;}
-//		set{ preferences = value;}
-//	}
+	Emailer emailer;
 
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
@@ -64,7 +59,7 @@ public partial class MainWindow: Gtk.Window
 		//Load last combobox.Active from config file
 		if (settings.ExistsKey (SettingsManager.PresetKeys.LastComboboxActive.ToString ())) {
 			if (boxList.ContainsKey (settings.Get (SettingsManager.PresetKeys.LastComboboxActive.ToString ()))) {
-				combobox1.Active = boxList.IndexOfKey (settings.Get(SettingsManager.PresetKeys.LastComboboxActive.ToString ()));
+				combobox1.Active = boxList.IndexOfKey (settings.Get (SettingsManager.PresetKeys.LastComboboxActive.ToString ()));
 				if (combobox1.Active < 0) {
 					combobox1.Active = 0;
 				}
@@ -111,25 +106,25 @@ public partial class MainWindow: Gtk.Window
 	{
 		Gtk.TreeViewColumn nameColumn = new Gtk.TreeViewColumn ();
 		//nameColumn.Title = "Documento";
-		nameColumn.Title = Mono.Unix.Catalog.GetString("Document");
+		nameColumn.Title = Mono.Unix.Catalog.GetString ("Document");
 		Gtk.CellRendererText nameCell = new Gtk.CellRendererText ();
 		nameColumn.PackStart (nameCell, true);
 
 		Gtk.TreeViewColumn directionColumn = new Gtk.TreeViewColumn ();
 		//directionColumn.Title = "Type";
-		directionColumn.Title  = Mono.Unix.Catalog.GetString("Type");
+		directionColumn.Title = Mono.Unix.Catalog.GetString ("Type");
 		Gtk.CellRendererText directionCell = new Gtk.CellRendererText ();
 		directionColumn.PackStart (directionCell, true);
 
 		Gtk.TreeViewColumn idColumn = new Gtk.TreeViewColumn ();
 		//idColumn.Title = "Id";
-		idColumn.Title = Mono.Unix.Catalog.GetString("Id");
+		idColumn.Title = Mono.Unix.Catalog.GetString ("Id");
 		Gtk.CellRendererText idCell = new Gtk.CellRendererText ();
 		idColumn.PackStart (idCell, true);
 
 		Gtk.TreeViewColumn dateColumn = new Gtk.TreeViewColumn ();
 		//dateColumn.Title = "Fecha";
-		dateColumn.Title = Mono.Unix.Catalog.GetString("Date");
+		dateColumn.Title = Mono.Unix.Catalog.GetString ("Date");
 		Gtk.CellRendererText dateCell = new Gtk.CellRendererText ();
 		dateColumn.PackStart (dateCell, true);
  
@@ -169,7 +164,7 @@ public partial class MainWindow: Gtk.Window
 		if (combo.Active >= 0) {
 			currentBoxList = combo.ActiveText;
 			UpdateTreeView (boxList [combo.ActiveText]);
-			settings.Set(SecretariaDataBase.ConfigKeys.LastComboboxActive.ToString (), combo.ActiveText.ToString ());
+			settings.Set (SecretariaDataBase.ConfigKeys.LastComboboxActive.ToString (), combo.ActiveText.ToString ());
 		}
 	}
 
@@ -199,8 +194,8 @@ public partial class MainWindow: Gtk.Window
 
 					if (b != null) {
 						string p = System.IO.Path.Combine (System.Environment.CurrentDirectory, b.FolderName);
-						string messageString = Mono.Unix.Catalog.GetString("This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not be undone</b>. Are you sure you want to continue?");
-						Gtk.MessageDialog msg = new MessageDialog (this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.YesNo, true, string.Format(messageString,p));
+						string messageString = Mono.Unix.Catalog.GetString ("This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not be undone</b>. Are you sure you want to continue?");
+						Gtk.MessageDialog msg = new MessageDialog (this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.YesNo, true, string.Format (messageString, p));
 						if ((ResponseType)msg.Run () == ResponseType.Yes) {
 							SecretariaDataBase.FileSystem.IO.DestroyBox (currentBoxList, boxList [currentBoxList], b);
 							UpdateTreeView (boxList [currentBoxList]);
@@ -225,8 +220,8 @@ public partial class MainWindow: Gtk.Window
 
 					if (doc != null) {
 						string p = System.IO.Path.Combine (System.Environment.CurrentDirectory, boxList [currentBoxList] [int.Parse (t [0])].FolderName, doc.Name);
-						string messageString = Mono.Unix.Catalog.GetString("This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not be undone</b>. Are you sure you want to continue?");
-						Gtk.MessageDialog msg = new MessageDialog (this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.YesNo, true, string.Format(messageString,p));
+						string messageString = Mono.Unix.Catalog.GetString ("This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not be undone</b>. Are you sure you want to continue?");
+						Gtk.MessageDialog msg = new MessageDialog (this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.YesNo, true, string.Format (messageString, p));
 						if ((ResponseType)msg.Run () == ResponseType.Yes) {
 							SecretariaDataBase.FileSystem.IO.DestroyDocument (currentBoxList, boxList [currentBoxList] [int.Parse (t [0])], doc);
 							UpdateTreeView (boxList [currentBoxList]);
@@ -362,41 +357,124 @@ public partial class MainWindow: Gtk.Window
 			pd.canCancel = false;
 		}
 		ResponseType resp = (ResponseType)pd.Run ();
-			if (resp == ResponseType.Ok) {
-				if (boxList != null) {
-					//I don't know why, but deleting items twice is the only form of really delete all them
-					combobox1.Active = -1;
-					for (int i = 0; i < boxList.Count; ++i) {
-						combobox1.RemoveText (i);
-					}
-					combobox1.Active = -1;
-					for (int i = 0; i < boxList.Count; ++i) {
-						combobox1.RemoveText (i);
-					}
-
+		if (resp == ResponseType.Ok) {
+			if (boxList != null) {
+				//I don't know why, but deleting items twice is the only form of really delete all them
+				combobox1.Active = -1;
+				for (int i = 0; i < boxList.Count; ++i) {
+					combobox1.RemoveText (i);
 				}
-					boxList = pd.BoxList;
+				combobox1.Active = -1;
+				for (int i = 0; i < boxList.Count; ++i) {
+					combobox1.RemoveText (i);
+				}
 
-					foreach (string key in boxList.Keys) {
-						combobox1.AppendText (key);
-					}
-					combobox1.Active = 0;
-					currentBoxList = combobox1.ActiveText;
+			}
+			boxList = pd.BoxList;
 
-					SecretariaDataBase.FileSystem.Box.SortBoxList (boxList [currentBoxList]);
-					UpdateTreeView (boxList [currentBoxList]);
+			foreach (string key in boxList.Keys) {
+				combobox1.AppendText (key);
+			}
+			combobox1.Active = 0;
+			currentBoxList = combobox1.ActiveText;
+
+			SecretariaDataBase.FileSystem.Box.SortBoxList (boxList [currentBoxList]);
+			UpdateTreeView (boxList [currentBoxList]);
 
 			treeview1.Selection.Changed += OnTreeViewSelectionChanged;						
-			}
+		}
 
 		pd.Destroy ();
 	}
 
 	protected void OnEmailButtonClicked (object sender, EventArgs e)
 	{
+		Gtk.TreeModel model;
+		Gtk.TreeIter iter;
+		string data;
+		string selectedPath = "";
 
-		System.Diagnostics.Process.Start("xdg-email","");
+		if (treeview1.Selection.GetSelected (out model, out iter)) {
+			GLib.Value val = GLib.Value.Empty;
 
+			string[] t = model.GetPath (iter).ToString ().Split (':');
+
+			if (t.Length == 1) { //Si se ha seleccionado un box
+				model.GetValue (iter, (int)SecretariaDataBase.Column.Name, ref val); //obtener name del box
+				data = (string)val.Val;
+
+				if (currentBoxList != null) {
+					SecretariaDataBase.FileSystem.Box b = boxList [currentBoxList].Find (x => {
+						if (x.Name.ToString () == data) {
+							return true;
+						} else {
+							return false;
+						}}
+					);
+
+					if (b != null) {
+						selectedPath = System.IO.Path.Combine (System.Environment.CurrentDirectory, b.FolderName);
+					}
+				}
+				val.Dispose ();
+			}
+			if (t.Length == 2) { //Si se ha seleccionado un documento
+				model.GetValue (iter, (int)SecretariaDataBase.Column.Id, ref val); //obtener id del documento
+				data = (string)val.Val;
+
+				if (currentBoxList != null) {
+					SecretariaDataBase.FileSystem.Document doc = boxList [currentBoxList] [int.Parse (t [0])].Documents.Find (x => {
+						if (x.Id.ToString () == data) {
+							return true;
+						} else {
+							return false;
+						}}
+					);
+
+					if (doc != null) {
+						selectedPath = System.IO.Path.Combine (System.Environment.CurrentDirectory, boxList [currentBoxList] [int.Parse (t [0])].FolderName, doc.Name);
+					}
+				}
+				val.Dispose ();
+			}
+		}
+		if (!string.IsNullOrEmpty (selectedPath)) {
+			FileChooserDialog fileChooser = new FileChooserDialog (Mono.Unix.Catalog.GetString ("Selecciona una Carpeta"), this, FileChooserAction.Open, Gtk.Stock.Cancel, Gtk.ResponseType.Cancel, Gtk.Stock.Open, Gtk.ResponseType.Ok);
+			fileChooser.Modal = true;
+			fileChooser.TypeHint = Gdk.WindowTypeHint.Dialog;
+			fileChooser.WindowPosition = Gtk.WindowPosition.CenterOnParent;
+			fileChooser.TransientFor = this;
+			fileChooser.SelectMultiple = true;
+			fileChooser.SetCurrentFolder (selectedPath);
+			if ((Gtk.ResponseType)fileChooser.Run () == Gtk.ResponseType.Ok) {
+				Emailer emailer = new Emailer (XdgEmailResponse);
+				//emailer.UTF8 = true;
+				string folder = "";
+				string[] folderPath;
+				if (fileChooser.CurrentFolder != null) {
+					folderPath = fileChooser.CurrentFolder.Split (System.IO.Path.DirectorySeparatorChar, System.IO.Path.VolumeSeparatorChar);
+
+					if (folderPath != null) {
+						if (folderPath.Length > 0) {
+							folder = folderPath [folderPath.Length - 1];
+						}
+					}
+				}
+				emailer.Subject = folder;
+				emailer.Attach = fileChooser.Filenames;
+				emailer.Execute ();
+				fileChooser.Destroy ();
+			} else {
+				fileChooser.Destroy ();
+			}
+		}
+	}
+
+	private void XdgEmailResponse (Emailer.ExitCode exitCode)
+	{
+#if DEBUG
+		System.Console.WriteLine ("¡It Works!");
+#endif
 	}
 
 }

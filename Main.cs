@@ -30,7 +30,9 @@ namespace SecretariaDataBase
 			Catalog.Init("l10n","./locale");
             MainWindow win = new MainWindow();
             win.Show();
+#if !DEBUG
 			GLib.ExceptionManager.UnhandledException+= HandleUnhandledException;
+#endif
             Application.Run();
 
         }

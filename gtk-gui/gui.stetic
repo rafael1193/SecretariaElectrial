@@ -119,7 +119,7 @@
                     <child>
                       <widget class="Gtk.TreeView" id="treeview1">
                         <property name="MemberName" />
-                        <property name="WidthRequest">500</property>
+                        <property name="WidthRequest">300</property>
                         <property name="CanFocus">True</property>
                         <property name="ShowScrollbars">True</property>
                         <property name="SearchColumn">0</property>
