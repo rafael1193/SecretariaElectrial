@@ -6,7 +6,7 @@
   </configuration>
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <widget-library name="../bin/Debug/secretaria-electrial.exe" internal="true" />
+    <widget-library name="../bin/Release/secretaria-electrial.exe" internal="true" />
   </import>
   <icon-factory>
     <icon-set id="Send by email">
@@ -171,8 +171,7 @@
                       <widget class="Gtk.Button" id="emailButton">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
-                        <property name="Type">TextAndIcon</property>
-                        <property name="Icon">stock:stock_mail-send Button</property>
+                        <property name="Type">TextOnly</property>
                         <property name="Label" translatable="yes">Send by email</property>
                         <signal name="Clicked" handler="OnEmailButtonClicked" />
                       </widget>
@@ -499,7 +498,6 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Label" translatable="yes">Entrada</property>
-                    <property name="Active">True</property>
                     <property name="DrawIndicator">True</property>
                     <property name="HasLabel">True</property>
                     <property name="UseUnderline">True</property>
@@ -717,6 +715,7 @@
                             <property name="MemberName" />
                             <property name="Title" translatable="yes">Selecciona una Carpeta</property>
                             <property name="Action">SelectFolder</property>
+                            <signal name="SelectionChanged" handler="OnFilechooserbutton1SelectionChanged" />
                           </widget>
                           <packing>
                             <property name="LeftAttach">1</property>

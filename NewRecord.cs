@@ -44,10 +44,10 @@ namespace SecretariaDataBase
             get { return insertingPosition;}
         }
 
-        public NewRecord(List<SecretariaDataBase.FileSystem.Box> availableBoxes)
+        public NewRecord(Gtk.Window parent,List<SecretariaDataBase.FileSystem.Box> availableBoxes)
         {
             this.Build();
-
+			this.TransientFor = parent;
             boxes = availableBoxes;
 
             foreach (var item in boxes)

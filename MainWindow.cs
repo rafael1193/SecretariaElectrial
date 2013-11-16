@@ -291,7 +291,7 @@ public partial class MainWindow: Gtk.Window
 	protected void OnNewActionActivated (object sender, EventArgs e)
 	{
 		if (boxList != null) {
-			SecretariaDataBase.NewRecord nd = new SecretariaDataBase.NewRecord (boxList [currentBoxList]);
+			SecretariaDataBase.NewRecord nd = new SecretariaDataBase.NewRecord (this,boxList [currentBoxList]);
 			nd.Icon = programIcon;
 			nd.TransientFor = this;
 			ResponseType resp = (ResponseType)nd.Run ();
@@ -330,7 +330,7 @@ public partial class MainWindow: Gtk.Window
 	protected void OnDirectoryActionActivated (object sender, EventArgs e)
 	{
 		if (boxList != null) {
-			SecretariaDataBase.NewBox nb = new SecretariaDataBase.NewBox (boxList [currentBoxList]);
+			SecretariaDataBase.NewBox nb = new SecretariaDataBase.NewBox (this, boxList [currentBoxList]);
 			nb.Icon = programIcon;
 			nb.TransientFor = this;
 			ResponseType resp = (ResponseType)nb.Run ();
@@ -382,6 +382,12 @@ public partial class MainWindow: Gtk.Window
 			UpdateTreeView (boxList [currentBoxList]);
 
 			treeview1.Selection.Changed += OnTreeViewSelectionChanged;						
+		} else if (resp == ResponseType.Cancel) 
+		{
+			if(firstrun)
+			{
+				Application.Quit();
+			}
 		}
 
 		pd.Destroy ();

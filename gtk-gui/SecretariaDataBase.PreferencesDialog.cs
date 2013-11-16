@@ -117,6 +117,7 @@ namespace SecretariaDataBase
 			this.DefaultWidth = 295;
 			this.DefaultHeight = 105;
 			this.Show ();
+			this.filechooserbutton1.SelectionChanged += new global::System.EventHandler (this.OnFilechooserbutton1SelectionChanged);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
 		}
 	}
