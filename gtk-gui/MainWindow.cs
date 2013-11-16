@@ -133,38 +133,24 @@ public partial class MainWindow
 		this.emailButton = new global::Gtk.Button ();
 		this.emailButton.CanFocus = true;
 		this.emailButton.Name = "emailButton";
-		// Container child emailButton.Gtk.Container+ContainerChild
-		global::Gtk.Alignment w8 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
-		// Container child GtkAlignment.Gtk.Container+ContainerChild
-		global::Gtk.HBox w9 = new global::Gtk.HBox ();
-		w9.Spacing = 2;
-		// Container child GtkHBox.Gtk.Container+ContainerChild
-		global::Gtk.Image w10 = new global::Gtk.Image ();
-		w10.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_mail-send", global::Gtk.IconSize.Button);
-		w9.Add (w10);
-		// Container child GtkHBox.Gtk.Container+ContainerChild
-		global::Gtk.Label w12 = new global::Gtk.Label ();
-		w12.LabelProp = global::Mono.Unix.Catalog.GetString ("Send by email");
-		w9.Add (w12);
-		w8.Add (w9);
-		this.emailButton.Add (w8);
+		this.emailButton.Label = global::Mono.Unix.Catalog.GetString ("Send by email");
 		this.vbuttonbox1.Add (this.emailButton);
-		global::Gtk.ButtonBox.ButtonBoxChild w16 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.emailButton]));
-		w16.Position = 2;
-		w16.Expand = false;
-		w16.Fill = false;
+		global::Gtk.ButtonBox.ButtonBoxChild w8 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.emailButton]));
+		w8.Position = 2;
+		w8.Expand = false;
+		w8.Fill = false;
 		this.hbox2.Add (this.vbuttonbox1);
-		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbuttonbox1]));
-		w17.Position = 1;
-		w17.Expand = false;
-		w17.Fill = false;
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbuttonbox1]));
+		w9.Position = 1;
+		w9.Expand = false;
+		w9.Fill = false;
 		this.vbox1.Add (this.hbox2);
-		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox2]));
-		w18.Position = 1;
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox2]));
+		w10.Position = 1;
 		this.vbox3.Add (this.vbox1);
-		global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.vbox1]));
-		w19.PackType = ((global::Gtk.PackType)(1));
-		w19.Position = 1;
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.vbox1]));
+		w11.PackType = ((global::Gtk.PackType)(1));
+		w11.Position = 1;
 		this.Add (this.vbox3);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();

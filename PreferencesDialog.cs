@@ -15,26 +15,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 using System;
 using System.Collections.Generic;
 
 namespace SecretariaDataBase
 {
-    public partial class PreferencesDialog : Gtk.Dialog
-    {
-        SortedList <string, List<SecretariaDataBase.FileSystem.Box>> boxList;
-        SettingsManager settings;
+	public partial class PreferencesDialog : Gtk.Dialog
+	{
+		SortedList <string, List<SecretariaDataBase.FileSystem.Box>> boxList;
+		SettingsManager settings;
 		public bool canCancel = true;
 
-        public SortedList <string, List<SecretariaDataBase.FileSystem.Box>> BoxList
-        {
-            get{ return boxList;}
-        }
+		public SortedList <string, List<SecretariaDataBase.FileSystem.Box>> BoxList {
+			get{ return boxList;}
+		}
 
-        public PreferencesDialog (MainWindow parent, bool firstRun)
+		public PreferencesDialog (MainWindow parent, bool firstRun)
 		{
 			this.Build ();
+			this.TransientFor = parent;
 
 			canCancel = !firstRun;
 
@@ -43,28 +42,36 @@ namespace SecretariaDataBase
 				buttonCancel.Sensitive = false;
 			}
 
-            if (settings.ExistsKey(SettingsManager.PresetKeys.LastFileSystem.ToString()))
-            {
-                filechooserbutton1.SetFilename(settings.Get (SettingsManager.PresetKeys.LastFileSystem.ToString()));
-            }
-        }
-
-        protected void OnButtonOkClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(filechooserbutton1.Filename))
-                {
-					settings.Set(SettingsManager.PresetKeys.LastFileSystem.ToString(), filechooserbutton1.Filename);
+			try {
+				if (settings.ExistsKey (SettingsManager.PresetKeys.LastFileSystem.ToString ())) {
+					filechooserbutton1.SetFilename (settings.Get (SettingsManager.PresetKeys.LastFileSystem.ToString ()));
 					boxList = SecretariaDataBase.FileSystem.IO.ReadFilesystem (settings.Get (SettingsManager.PresetKeys.LastFileSystem.ToString ()));
-                    Respond(Gtk.ResponseType.Ok);
-                }
-            } 
-            catch (Exception ex)
-            {
+				}
+			} catch (Exception ex) {
+				buttonOk.Sensitive = false;
+			}
+		}
 
-            }
-        }
-    }
+		protected void OnButtonOkClicked (object sender, EventArgs e)
+		{
+			if (BoxList != null) {
+				Respond (Gtk.ResponseType.Ok);
+			}
+		}
+
+		protected void OnFilechooserbutton1SelectionChanged (object sender, EventArgs e)
+		{
+			try {
+				if (!string.IsNullOrEmpty (filechooserbutton1.Filename)) {
+					boxList = SecretariaDataBase.FileSystem.IO.ReadFilesystem (filechooserbutton1.Filename);
+					settings.Set (SettingsManager.PresetKeys.LastFileSystem.ToString (), filechooserbutton1.Filename);
+					buttonOk.Sensitive = true;
+				}
+			} catch (Exception ex) {
+				buttonOk.Sensitive = false;
+			}
+		}
+
+	}
 }
 

@@ -38,9 +38,10 @@ namespace SecretariaDataBase
             get { return insertingPosition;}
         }
 
-        public NewBox(List<SecretariaDataBase.FileSystem.Box> availableBoxes)
+        public NewBox(Gtk.Window parent, List<SecretariaDataBase.FileSystem.Box> availableBoxes)
         {
             this.Build();
+			this.TransientFor = parent;
 
             boxes = availableBoxes;
             OnInRadiobuttonToggled(inRadiobutton, new EventArgs());
