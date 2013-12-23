@@ -1,6 +1,6 @@
 /*
  * Secretaría Electrial
- * Copyright (C) 2013  Rafael Bailón-Ruiz <rafaebailon@ieee.org>
+ * Copyright (C) 2013 Rafael Bailón-Ruiz <rafaebailon@ieee.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,468 +20,373 @@ using Gtk;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Reflection;
-using SecretariaDataBase;
+using SecretariaElectrial;
+using SecretariaElectrial.FileSystem;
 
 public partial class MainWindow: Gtk.Window
-{   
+{
 	const string DATABASE_PATH = "Secretaría";
 	const string DEFINITION_FILE = "box-definitions.xml";
 	const string DATA_FILE = "document-data.xml";
-	const string FILE_MANAGER = "xdg-open";
-	Gdk.Pixbuf programIcon = new Gdk.Pixbuf (Assembly.GetExecutingAssembly (), "SecretariaDataBase.logo-ico");
-	SortedList <string, List<SecretariaDataBase.FileSystem.Box>> boxList;
-	string currentBoxList;
-	string currentSelectedItemPath;
-
+	const string FILE_MANAGER = "nautilus";
+	Gdk.Pixbuf programIcon = new Gdk.Pixbuf(Assembly.GetExecutingAssembly(), "SecretariaElectrial.logo-ico");
+	Registry registry;
+	Category categorySelectedInComboBox = null;
+	int nElementsInComboBox = 0;
+	Document documentSelectedInTreeView = null;
+	TreeStore documentListStore;
+	TreeModelFilter filt;
 	internal SettingsManager settings;
 	bool firstrun;
-
 	Emailer emailer;
 
-	public MainWindow (): base (Gtk.WindowType.Toplevel)
+	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
-		Build ();
+		Build();
 
-		//Load config file
-		settings = new SettingsManager (true);
-		try {
-			boxList = SecretariaDataBase.FileSystem.IO.ReadFilesystem (settings.Get (SettingsManager.PresetKeys.LastFileSystem.ToString ()));
-		} catch {
-			firstrun = true;
-			preferencesAction.Activate (); //Show preferences window in order to create a filesystem
-			boxList = SecretariaDataBase.FileSystem.IO.ReadFilesystem (settings.Get (SettingsManager.PresetKeys.LastFileSystem.ToString ())); //Load good filesystem
-			firstrun = false;
-		}
-		foreach (string key in boxList.Keys) {
-			combobox1.AppendText (key);
-		}
+		Reload();
 
-		//Load last combobox.Active from config file
-		if (settings.ExistsKey (SettingsManager.PresetKeys.LastComboboxActive.ToString ())) {
-			if (boxList.ContainsKey (settings.Get (SettingsManager.PresetKeys.LastComboboxActive.ToString ()))) {
-				combobox1.Active = boxList.IndexOfKey (settings.Get (SettingsManager.PresetKeys.LastComboboxActive.ToString ()));
-				if (combobox1.Active < 0) {
-					combobox1.Active = 0;
-				}
-			} else {
-				combobox1.Active = 0;
-			}
-		} else {
-			combobox1.Active = 0;
-		}
+		emailButton.Label = Mono.Unix.Catalog.GetString("Send by email");
 
-		currentBoxList = combobox1.ActiveText;
+		UpdateCategoryComboBox();
+		PopulateTreeView();
+		UpdateTreeView();
 
-		PopulateTreeView ();
-		SecretariaDataBase.FileSystem.Box.SortBoxList (boxList [currentBoxList]);
-		UpdateTreeView (boxList [currentBoxList]);
-
-		treeview1.Selection.Changed += OnTreeViewSelectionChanged;
+		DocumentTreeView.Selection.Changed += OnTreeViewSelectionChanged;
 	}
 
-	void OnTreeViewSelectionChanged (object sender, EventArgs e)
+	public void Reload()
+	{
+		//Load config file
+		settings = new SettingsManager(true);
+		try
+		{
+			registry = Registry.LoadFrom(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString()));
+		}
+		catch (Exception e)
+		{
+			Gtk.MessageDialog msg = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.Close, true, string.Format(e.Message.ToString()));
+			if ((ResponseType)msg.Run() == ResponseType.Close)
+			{
+				msg.Destroy();
+			}
+			string newPath = System.IO.Path.Combine(Environment.CurrentDirectory, "registro");
+			settings.Set(SettingsManager.PresetKeys.LastFileSystem.ToString(), newPath); //FIXME: mostrar ventana de opciones
+			Registry.CreateFileSystem(newPath);
+			registry = Registry.LoadFrom(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString()));
+
+			firstrun = true;
+			//preferencesAction.Activate(); //Show preferences window in order to create a filesystem
+			//boxList = SecretariaElectrial.FileSystem.IO.ReadFilesystem(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString())); //Load good filesystem
+			firstrun = false;
+		}
+	}
+
+	private void UpdateCategoryComboBox()
+	{
+		bool sel = false;
+		int n = nElementsInComboBox;
+		for(int i = 0; i < n; ++i)
+		{
+			categoryComboBox.RemoveText(0);
+			--nElementsInComboBox;
+		}
+		foreach (var cat in registry)
+		{
+			categoryComboBox.AppendText(cat.ToString());
+			++nElementsInComboBox;
+			sel = true;
+		}
+		if (sel)
+		{
+			categoryComboBox.Active = 0;
+			categorySelectedInComboBox = registry.Get(categoryComboBox.ActiveText);
+		}
+	}
+
+	protected void OnCategoryComboBoxChanged(object sender, EventArgs e)
+	{
+		ComboBox combo = sender as ComboBox;
+
+		if (combo != null)
+		{
+			if (combo.ActiveText != null)
+			{
+				categorySelectedInComboBox = registry.Get(combo.ActiveText);
+			}
+		}
+		UpdateTreeView();
+	}
+
+	void OnTreeViewSelectionChanged(object sender, EventArgs e)
 	{
 		Gtk.TreeSelection selection = sender as Gtk.TreeSelection;
 		string data;
 		Gtk.TreeModel model;
 		Gtk.TreeIter iter;
 
-		if (selection.GetSelected (out model, out iter)) {
-			int column = 0;
-			GLib.Value val = GLib.Value.Empty;
-			model.GetValue (iter, column, ref val);
-			//currentSelectedItemPath = model.GetPath(iter).ToString();
-			data = (string)val.Val;
-			val.Dispose ();
+		if (selection.GetSelected(out model, out iter))
+		{
+			int depth = model.GetPath(iter).ToString().Split(':').Length;
+			if (depth == 1) //Category
+			{
+				int column = (int)Column.Id;
+				GLib.Value val = GLib.Value.Empty;
+				model.GetValue(iter, column, ref val);
+				data = (string)val.Val;
+				documentSelectedInTreeView = registry.Get(categorySelectedInComboBox.Direction, categorySelectedInComboBox.Group).Get(int.Parse(data));
+				val.Dispose();
+			}
 		} 
 	}
-    
-	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
+
+	protected void OnDeleteEvent(object sender, DeleteEventArgs a)
 	{
-		Application.Quit ();
+		Application.Quit();
 		a.RetVal = true;
 	}
 
-	private void PopulateTreeView ()
+	private void PopulateTreeView()
 	{
-		Gtk.TreeViewColumn nameColumn = new Gtk.TreeViewColumn ();
-		//nameColumn.Title = "Documento";
-		nameColumn.Title = Mono.Unix.Catalog.GetString ("Document");
-		Gtk.CellRendererText nameCell = new Gtk.CellRendererText ();
-		nameColumn.PackStart (nameCell, true);
+		Gtk.TreeViewColumn idColumn = new Gtk.TreeViewColumn();
+		idColumn.Title = Mono.Unix.Catalog.GetString("Id");
+		Gtk.CellRendererText idCell = new Gtk.CellRendererText();
+		idColumn.PackStart(idCell, true);
 
-		Gtk.TreeViewColumn directionColumn = new Gtk.TreeViewColumn ();
-		//directionColumn.Title = "Type";
-		directionColumn.Title = Mono.Unix.Catalog.GetString ("Type");
-		Gtk.CellRendererText directionCell = new Gtk.CellRendererText ();
-		directionColumn.PackStart (directionCell, true);
+		Gtk.TreeViewColumn dateColumn = new Gtk.TreeViewColumn();
+		dateColumn.Title = Mono.Unix.Catalog.GetString("Date");
+		Gtk.CellRendererText dateCell = new Gtk.CellRendererText();
+		dateColumn.PackStart(dateCell, true);
 
-		Gtk.TreeViewColumn idColumn = new Gtk.TreeViewColumn ();
-		//idColumn.Title = "Id";
-		idColumn.Title = Mono.Unix.Catalog.GetString ("Id");
-		Gtk.CellRendererText idCell = new Gtk.CellRendererText ();
-		idColumn.PackStart (idCell, true);
+		Gtk.TreeViewColumn nameColumn = new Gtk.TreeViewColumn();
+		nameColumn.Title = Mono.Unix.Catalog.GetString("Name");
+		Gtk.CellRendererText nameCell = new Gtk.CellRendererText();
+		nameColumn.PackStart(nameCell, true);
 
-		Gtk.TreeViewColumn dateColumn = new Gtk.TreeViewColumn ();
-		//dateColumn.Title = "Fecha";
-		dateColumn.Title = Mono.Unix.Catalog.GetString ("Date");
-		Gtk.CellRendererText dateCell = new Gtk.CellRendererText ();
-		dateColumn.PackStart (dateCell, true);
- 
-		treeview1.AppendColumn (nameColumn);
-		treeview1.AppendColumn (directionColumn);
-		treeview1.AppendColumn (idColumn);
-		treeview1.AppendColumn (dateColumn);
- 
-		nameColumn.AddAttribute (nameCell, "text", 0);
-		directionColumn.AddAttribute (directionCell, "text", 1);
-		idColumn.AddAttribute (idCell, "text", 2);
-		dateColumn.AddAttribute (dateCell, "text", 3);
+		DocumentTreeView.AppendColumn(idColumn);
+		DocumentTreeView.AppendColumn(dateColumn);
+		DocumentTreeView.AppendColumn(nameColumn);
+
+		idColumn.AddAttribute(idCell, "text", 0);
+		dateColumn.AddAttribute(dateCell, "text", 1);
+		nameColumn.AddAttribute(nameCell, "text", 2);
 	}
 
-	private void UpdateTreeView (List<SecretariaDataBase.FileSystem.Box> boxesWithDocuments)
+	private void UpdateTreeView()
 	{
-		Gtk.TreeStore documentListStore = new Gtk.TreeStore (typeof(string), typeof(string), typeof(string), typeof(string));//Nombre, dirección, id, fecha
+		documentListStore = new Gtk.TreeStore(typeof(string), typeof(string), typeof(string));//Id, fecha, nombre
+		DocumentTreeView.Model = documentListStore;
 
-		if (boxesWithDocuments != null) {
-			Gtk.TreeIter iter;
-			foreach (var box in boxesWithDocuments) {
-				iter = documentListStore.AppendValues (box.Name, box.DirectionString.ToString (), box.Code.ToString ());
-				foreach (var doc in box.Documents) {
-					documentListStore.AppendValues (iter, doc.Name, "", doc.Id.ToString (), doc.RegistrationDate.ToShortDateString ());
-				}
+		if (categorySelectedInComboBox != null)
+		{
+			foreach (var doc in categorySelectedInComboBox)
+			{
+				documentListStore.AppendValues(doc.Id.ToString("0000"), doc.RegistrationDate.ToShortDateString(), doc.Name);
 			}
-			treeview1.Model = documentListStore;
 		}
 	}
 
-	protected void OnCombobox1Changed (object sender, EventArgs e)
+	protected void OnOpenButtonClicked(object sender, EventArgs e)
 	{
-		ComboBox combo = sender as ComboBox;
-		if (sender == null)
-			return;
-
-		if (combo.Active >= 0) {
-			currentBoxList = combo.ActiveText;
-			UpdateTreeView (boxList [combo.ActiveText]);
-			settings.Set (SecretariaDataBase.ConfigKeys.LastComboboxActive.ToString (), combo.ActiveText.ToString ());
+		if (categorySelectedInComboBox != null)
+		{
+			if (documentSelectedInTreeView != null)
+			{
+				string p = System.IO.Path.Combine(registry.BasePath, categorySelectedInComboBox.GetDirectionString(), categorySelectedInComboBox.ToString(), documentSelectedInTreeView.ToString());
+				System.Diagnostics.Process.Start(FILE_MANAGER, "\"file://" + p + "\"");
+			}
 		}
 	}
 
-	protected void OnButton22Clicked (object sender, EventArgs e)
+	protected void OnDeleteButtonClicked(object sender, EventArgs e)
 	{
-		Gtk.TreeModel model;
-		Gtk.TreeIter iter;
-		string data;
-
-		if (treeview1.Selection.GetSelected (out model, out iter)) {
-			GLib.Value val = GLib.Value.Empty;
-
-			string[] t = model.GetPath (iter).ToString ().Split (':');
-
-			if (t.Length == 1) { //Si se ha seleccionado un box
-				model.GetValue (iter, (int)SecretariaDataBase.Column.Name, ref val); //obtener name del box
-				data = (string)val.Val;
-
-				if (currentBoxList != null) {
-					SecretariaDataBase.FileSystem.Box b = boxList [currentBoxList].Find (x => {
-						if (x.Name.ToString () == data) {
-							return true;
-						} else {
-							return false;
-						}}
-					);
-
-					if (b != null) {
-						string p = System.IO.Path.Combine (System.Environment.CurrentDirectory, b.FolderName);
-						string messageString = Mono.Unix.Catalog.GetString ("This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not be undone</b>. Are you sure you want to continue?");
-						Gtk.MessageDialog msg = new MessageDialog (this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.YesNo, true, string.Format (messageString, p));
-						if ((ResponseType)msg.Run () == ResponseType.Yes) {
-							SecretariaDataBase.FileSystem.IO.DestroyBox (currentBoxList, boxList [currentBoxList], b);
-							UpdateTreeView (boxList [currentBoxList]);
-						}
-						msg.Destroy ();
-					}
+		if (categorySelectedInComboBox != null)
+		{
+			if (documentSelectedInTreeView != null)
+			{
+				string p = System.IO.Path.Combine(registry.BasePath, categorySelectedInComboBox.GetDirectionString(), categorySelectedInComboBox.ToString(), documentSelectedInTreeView.ToString());
+				string messageString = Mono.Unix.Catalog.GetString("Are you sure you want to delete this document?\n <b> \"{0}\"</b>.\n This operation <b>can not be undone</b>");
+				Gtk.MessageDialog msg = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.YesNo, true, string.Format(messageString, p));
+				if ((ResponseType)msg.Run() == ResponseType.Yes)
+				{
+					documentSelectedInTreeView.Delete();
+					UpdateTreeView();
+					UpdateCategoryComboBox();
 				}
-				val.Dispose ();
+				msg.Destroy();
 			}
-			if (t.Length == 2) { //Si se ha seleccionado un documento
-				model.GetValue (iter, (int)SecretariaDataBase.Column.Id, ref val); //obtener id del documento
-				data = (string)val.Val;
-
-				if (currentBoxList != null) {
-					SecretariaDataBase.FileSystem.Document doc = boxList [currentBoxList] [int.Parse (t [0])].Documents.Find (x => {
-						if (x.Id.ToString () == data) {
-							return true;
-						} else {
-							return false;
-						}}
-					);
-
-					if (doc != null) {
-						string p = System.IO.Path.Combine (System.Environment.CurrentDirectory, boxList [currentBoxList] [int.Parse (t [0])].FolderName, doc.Name);
-						string messageString = Mono.Unix.Catalog.GetString ("This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can not be undone</b>. Are you sure you want to continue?");
-						Gtk.MessageDialog msg = new MessageDialog (this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.YesNo, true, string.Format (messageString, p));
-						if ((ResponseType)msg.Run () == ResponseType.Yes) {
-							SecretariaDataBase.FileSystem.IO.DestroyDocument (currentBoxList, boxList [currentBoxList] [int.Parse (t [0])], doc);
-							UpdateTreeView (boxList [currentBoxList]);
-						}
-						msg.Destroy ();
-					}
-				}
-				val.Dispose ();
-			}
-		} 
+		}
 	}
 
-	protected void OnButton23Clicked (object sender, EventArgs e)
+	protected void OnNewActionActivated(object sender, EventArgs e)
 	{
-		Gtk.TreeModel model;
-		Gtk.TreeIter iter;
-		string data;
+		AddDocument nd = new AddDocument(registry);
 
-		if (treeview1.Selection.GetSelected (out model, out iter)) {
-			GLib.Value val = GLib.Value.Empty;
-
-			string[] t = model.GetPath (iter).ToString ().Split (':');
-
-			if (t.Length == 1) { //Si se ha seleccionado un box
-				model.GetValue (iter, (int)SecretariaDataBase.Column.Name, ref val); //obtener name del box
-				data = (string)val.Val;
-
-				if (currentBoxList != null) {
-					SecretariaDataBase.FileSystem.Box b = boxList [currentBoxList].Find (x => {
-						if (x.Name.ToString () == data) {
-							return true;
-						} else {
-							return false;
-						}}
-					);
-
-					if (b != null) {
-						string p = System.IO.Path.Combine (System.Environment.CurrentDirectory, b.FolderName);
-						System.Diagnostics.Process.Start (FILE_MANAGER, "\"" + p + "\"");
-					}
-				}
-				val.Dispose ();
-			}
-			if (t.Length == 2) { //Si se ha seleccionado un documento
-				model.GetValue (iter, (int)SecretariaDataBase.Column.Id, ref val); //obtener id del documento
-				data = (string)val.Val;
-
-				if (currentBoxList != null) {
-					SecretariaDataBase.FileSystem.Document doc = boxList [currentBoxList] [int.Parse (t [0])].Documents.Find (x => {
-						if (x.Id.ToString () == data) {
-							return true;
-						} else {
-							return false;
-						}}
-					);
-
-					if (doc != null) {
-						string p = System.IO.Path.Combine (System.Environment.CurrentDirectory, boxList [currentBoxList] [int.Parse (t [0])].FolderName, doc.Name);
-						System.Diagnostics.Process.Start (FILE_MANAGER, "\"file://" + p + "\"");
-					}
-				}
-				val.Dispose ();
-			}
-		} 
-	}
-
-	protected void OnNewActionActivated (object sender, EventArgs e)
-	{
-		if (boxList != null) {
-			SecretariaDataBase.NewRecord nd = new SecretariaDataBase.NewRecord (this,boxList [currentBoxList]);
-			nd.Icon = programIcon;
-			nd.TransientFor = this;
-			ResponseType resp = (ResponseType)nd.Run ();
+		nd.Icon = programIcon;
+		nd.TransientFor = this;
+		ResponseType resp = (ResponseType)nd.Run();
         
-			if (resp == ResponseType.Ok) {
-				nd.SelectedBox.Documents.Insert (nd.InsertingPosition, nd.NewDocument);
-				SecretariaDataBase.FileSystem.IO.CreateNewDocument (currentBoxList, nd.SelectedBox, nd.NewDocument);
-
-				UpdateTreeView (boxList [currentBoxList]);
-			}
-
-			nd.Destroy ();
+		if (resp == ResponseType.Ok)
+		{
+			UpdateTreeView();
+			UpdateCategoryComboBox();
+			registry.Write();
 		}
+
+		nd.Destroy();
 	}
 
-	protected void OnInfoActionActivated (object sender, EventArgs e)
+	protected void OnInfoActionActivated(object sender, EventArgs e)
 	{
-		Gtk.AboutDialog about = new AboutDialog ();
+		Gtk.AboutDialog about = new AboutDialog();
 		about.ProgramName = "Secretaría Electrial";
-		about.Authors = new string[]{"Rafael Bailón-Ruiz <rafaelbailon@ieee.org>"};
+		about.Authors = new string[]{ "Rafael Bailón-Ruiz <rafaelbailon@ieee.org>" };
 		about.TranslatorCredits = "English:\n\tRafael Bailón-Ruiz <rafaelbailon@ieee.org>\nEspañol:\n\tRafael Bailón-Ruiz <rafaelbailon@ieee.org>\nFrançais:\n\tRafael Bailón-Ruiz <rafaelbailon@ieee.org>";
-		about.Copyright = "Copyright © 2013 Asociación Electrial";
-		about.WebsiteLabel = "http://aselectrial.blogspot.com";
-		about.Version = "0.4";
+		about.Copyright = "Copyright © 2013-2014 Asociación Electrial";
+		about.WebsiteLabel = "http://www.ugr.es/~electrial";
+		about.Version = "0.9.90";
 		about.Icon = programIcon;
 		about.Logo = programIcon;
 		about.License = "This program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see <http://www.gnu.org/licenses/>.\n";
 		about.Modal = true;
 		about.TransientFor = this;
-		if ((ResponseType)about.Run () == ResponseType.Cancel) {
-
-		}
-		about.Destroy ();
-	}
-
-	protected void OnDirectoryActionActivated (object sender, EventArgs e)
-	{
-		if (boxList != null) {
-			SecretariaDataBase.NewBox nb = new SecretariaDataBase.NewBox (this, boxList [currentBoxList]);
-			nb.Icon = programIcon;
-			nb.TransientFor = this;
-			ResponseType resp = (ResponseType)nb.Run ();
-        
-			if (resp == ResponseType.Ok) {
-				nb.CreatedBox.FolderName = System.IO.Path.Combine (currentBoxList, nb.CreatedBox.FolderName);
-				boxList [currentBoxList].Insert (nb.InsertingPosition, nb.CreatedBox);
-				SecretariaDataBase.FileSystem.IO.CreateBox (currentBoxList, nb.CreatedBox);
-
-				UpdateTreeView (boxList [currentBoxList]);
-
-			}
-
-			nb.Destroy ();
-		}
-	}
-
-	protected void OnPreferencesActionActivated (object sender, EventArgs e)
-	{
-		SecretariaDataBase.PreferencesDialog pd = new SecretariaDataBase.PreferencesDialog (this, firstrun);
-		pd.Icon = programIcon;
-		pd.TransientFor = this;
-		if (firstrun) {
-			pd.canCancel = false;
-		}
-		ResponseType resp = (ResponseType)pd.Run ();
-		if (resp == ResponseType.Ok) {
-			if (boxList != null) {
-				//I don't know why, but deleting items twice is the only form of really delete all them
-				combobox1.Active = -1;
-				for (int i = 0; i < boxList.Count; ++i) {
-					combobox1.RemoveText (i);
-				}
-				combobox1.Active = -1;
-				for (int i = 0; i < boxList.Count; ++i) {
-					combobox1.RemoveText (i);
-				}
-
-			}
-			boxList = pd.BoxList;
-
-			foreach (string key in boxList.Keys) {
-				combobox1.AppendText (key);
-			}
-			combobox1.Active = 0;
-			currentBoxList = combobox1.ActiveText;
-
-			SecretariaDataBase.FileSystem.Box.SortBoxList (boxList [currentBoxList]);
-			UpdateTreeView (boxList [currentBoxList]);
-
-			treeview1.Selection.Changed += OnTreeViewSelectionChanged;						
-		} else if (resp == ResponseType.Cancel) 
+		if ((ResponseType)about.Run() == ResponseType.Cancel)
 		{
-			if(firstrun)
+
+		}
+		about.Destroy();
+	}
+
+	protected void OnPreferencesActionActivated(object sender, EventArgs e)
+	{
+		Preferences pref = new Preferences(settings,registry);
+		pref.Icon = programIcon;
+		pref.TransientFor = this;
+		if ((ResponseType)pref.Run() == ResponseType.Ok)
+		{
+			OnRefreshActionActivated(pref, new EventArgs());
+		}
+		pref.Destroy();
+
+		/*PREFERENCIAS*/
+
+//        SecretariaElectrial.PreferencesDialog pd = new SecretariaElectrial.PreferencesDialog(this, firstrun);
+//        pd.Icon = programIcon;
+//        pd.TransientFor = this;
+//        if (firstrun)
+//        {
+//            pd.canCancel = false;
+//        }
+//        ResponseType resp = (ResponseType)pd.Run();
+//        if (resp == ResponseType.Ok)
+//        {
+//            if (boxList != null)
+//            {
+//                //I don't know why, but deleting items twice is the only form of really delete all them
+//                combobox1.Active = -1;
+//                for (int i = 0; i < boxList.Count; ++i)
+//                {
+//                    combobox1.RemoveText(i);
+//                }
+//                combobox1.Active = -1;
+//                for (int i = 0; i < boxList.Count; ++i)
+//                {
+//                    combobox1.RemoveText(i);
+//                }
+//
+//            }
+//            boxList = pd.BoxList;
+//
+//            foreach (string key in boxList.Keys)
+//            {
+//                combobox1.AppendText(key);
+//            }
+//            combobox1.Active = 0;
+//            currentBoxList = combobox1.ActiveText;
+//
+//            SecretariaElectrial.FileSystem.Box.SortBoxList(boxList [currentBoxList]);
+//            UpdateTreeView(boxList [currentBoxList]);
+//
+//            DocumentTreeView.Selection.Changed += OnTreeViewSelectionChanged;                      
+//        } else if (resp == ResponseType.Cancel)
+//        {
+//            if (firstrun)
+//            {
+//                Application.Quit();
+//            }
+//        }
+//
+//        pd.Destroy();
+	}
+
+	protected void OnEmailButtonClicked(object sender, EventArgs e)
+	{
+		if (categorySelectedInComboBox != null)
+		{
+			if (documentSelectedInTreeView != null)
 			{
-				Application.Quit();
+				string p = System.IO.Path.Combine(registry.BasePath, categorySelectedInComboBox.GetDirectionString(), categorySelectedInComboBox.ToString(), documentSelectedInTreeView.ToString());
+
+				/*Selecionar archivos*/
+				FileChooserDialog fileChooser = new FileChooserDialog(Mono.Unix.Catalog.GetString("Selecciona una Carpeta"), this, FileChooserAction.Open, Gtk.Stock.Cancel, Gtk.ResponseType.Cancel, Gtk.Stock.Open, Gtk.ResponseType.Ok);
+				fileChooser.Modal = true;
+				fileChooser.TypeHint = Gdk.WindowTypeHint.Dialog;
+				fileChooser.WindowPosition = Gtk.WindowPosition.CenterOnParent;
+				fileChooser.TransientFor = this;
+				fileChooser.SelectMultiple = true;
+				fileChooser.SetCurrentFolder(p);
+				if ((Gtk.ResponseType)fileChooser.Run() == Gtk.ResponseType.Ok)
+				{
+					Emailer emailer = new Emailer(XdgEmailResponse);
+					emailer.Subject = documentSelectedInTreeView.Name;
+					emailer.Attach = fileChooser.Filenames;
+					emailer.Execute();
+					fileChooser.Destroy();
+				}
+				else
+				{
+					fileChooser.Destroy();
+				}
 			}
 		}
-
-		pd.Destroy ();
 	}
 
-	protected void OnEmailButtonClicked (object sender, EventArgs e)
+	private void XdgEmailResponse(Emailer.ExitCode exitCode)
 	{
-		Gtk.TreeModel model;
-		Gtk.TreeIter iter;
-		string data;
-		string selectedPath = "";
-
-		if (treeview1.Selection.GetSelected (out model, out iter)) {
-			GLib.Value val = GLib.Value.Empty;
-
-			string[] t = model.GetPath (iter).ToString ().Split (':');
-
-			if (t.Length == 1) { //Si se ha seleccionado un box
-				model.GetValue (iter, (int)SecretariaDataBase.Column.Name, ref val); //obtener name del box
-				data = (string)val.Val;
-
-				if (currentBoxList != null) {
-					SecretariaDataBase.FileSystem.Box b = boxList [currentBoxList].Find (x => {
-						if (x.Name.ToString () == data) {
-							return true;
-						} else {
-							return false;
-						}}
-					);
-
-					if (b != null) {
-						selectedPath = System.IO.Path.Combine (System.Environment.CurrentDirectory, b.FolderName);
-					}
-				}
-				val.Dispose ();
-			}
-			if (t.Length == 2) { //Si se ha seleccionado un documento
-				model.GetValue (iter, (int)SecretariaDataBase.Column.Id, ref val); //obtener id del documento
-				data = (string)val.Val;
-
-				if (currentBoxList != null) {
-					SecretariaDataBase.FileSystem.Document doc = boxList [currentBoxList] [int.Parse (t [0])].Documents.Find (x => {
-						if (x.Id.ToString () == data) {
-							return true;
-						} else {
-							return false;
-						}}
-					);
-
-					if (doc != null) {
-						selectedPath = System.IO.Path.Combine (System.Environment.CurrentDirectory, boxList [currentBoxList] [int.Parse (t [0])].FolderName, doc.Name);
-					}
-				}
-				val.Dispose ();
-			}
-		}
-		if (!string.IsNullOrEmpty (selectedPath)) {
-			FileChooserDialog fileChooser = new FileChooserDialog (Mono.Unix.Catalog.GetString ("Selecciona una Carpeta"), this, FileChooserAction.Open, Gtk.Stock.Cancel, Gtk.ResponseType.Cancel, Gtk.Stock.Open, Gtk.ResponseType.Ok);
-			fileChooser.Modal = true;
-			fileChooser.TypeHint = Gdk.WindowTypeHint.Dialog;
-			fileChooser.WindowPosition = Gtk.WindowPosition.CenterOnParent;
-			fileChooser.TransientFor = this;
-			fileChooser.SelectMultiple = true;
-			fileChooser.SetCurrentFolder (selectedPath);
-			if ((Gtk.ResponseType)fileChooser.Run () == Gtk.ResponseType.Ok) {
-				Emailer emailer = new Emailer (XdgEmailResponse);
-				//emailer.UTF8 = true;
-				string folder = "";
-				string[] folderPath;
-				if (fileChooser.CurrentFolder != null) {
-					folderPath = fileChooser.CurrentFolder.Split (System.IO.Path.DirectorySeparatorChar, System.IO.Path.VolumeSeparatorChar);
-
-					if (folderPath != null) {
-						if (folderPath.Length > 0) {
-							folder = folderPath [folderPath.Length - 1];
-						}
-					}
-				}
-				emailer.Subject = folder;
-				emailer.Attach = fileChooser.Filenames;
-				emailer.Execute ();
-				fileChooser.Destroy ();
-			} else {
-				fileChooser.Destroy ();
-			}
-		}
+		System.Console.WriteLine("¡It Works!");
 	}
 
-	private void XdgEmailResponse (Emailer.ExitCode exitCode)
+	private bool FilterTree(Gtk.TreeModel model, Gtk.TreeIter iter)
 	{
-#if DEBUG
-		System.Console.WriteLine ("¡It Works!");
-#endif
+		string item = model.GetValue(iter, (int)Column.Name).ToString();
+
+		if (searchEntry.Text == "")
+		{
+			return true;
+		}
+		if (item.Contains(searchEntry.Text.ToLower()))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
+	protected void OnSearchEntryChanged(object sender, EventArgs e)
+	{
+		filt = new TreeModelFilter(documentListStore, null);
+		filt.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc(FilterTree);
+		DocumentTreeView.Model = filt;
+		filt.Refilter();
+	}
+
+	protected void OnRefreshActionActivated(object sender, EventArgs e)
+	{
+		Reload();
+
+		UpdateCategoryComboBox();
+		OnCategoryComboBoxChanged(categoryComboBox, new EventArgs());
+	}
 }
-

@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-15 22:16:15+0200\n"
-"PO-Revision-Date: 2013-07-15 22:15:13+0200\n"
+"POT-Creation-Date: 2013-12-23 14:29:27+0100\n"
+"PO-Revision-Date: 2013-12-23 14:33:30+0100\n"
 "Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.org>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -15,108 +15,134 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: MonoDevelop Gettext addin\n"
 
-#: ../MainWindow.cs:13
-msgid "Document"
-msgstr "Document"
-
-#: ../MainWindow.cs:14
-msgid "Type"
-msgstr "Type"
-
-#: ../MainWindow.cs:15
-msgid "Id"
-msgstr "Id"
-
-#: ../MainWindow.cs:16
-msgid "Date"
-msgstr "Date"
-
-#: ../MainWindow.cs:26 ../MainWindow.cs:28
-msgid ""
-"This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can "
-"not be undone</b>. Are you sure you want to continue?"
-msgstr ""
-"Cette opération <b>détruira touts les fichiers</b> en: \"{0}\", et <b>ne "
-"peut pas être annulée</b>. Est-ce que vous êtes sûrs de continuer?"
-
-#: ../gtk-gui/MainWindow.cs:2 ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
-msgid "Nuevo registro"
-msgstr "Nouveau registre"
-
-#: ../gtk-gui/MainWindow.cs:2
-#: ../gtk-gui/SecretariaDataBase.PreferencesDialog.cs:1
-msgid "Preferencias"
-msgstr "Préférences"
-
-#: ../gtk-gui/MainWindow.cs:2
-msgid "bfghdgdfgdf"
-msgstr ""
-
-#: ../gtk-gui/MainWindow.cs:2
-msgid "gdfgdfgdfg"
-msgstr ""
-
-#: ../gtk-gui/MainWindow.cs:2
-msgid "gdfgdfgdf"
-msgstr ""
-
-#: ../gtk-gui/MainWindow.cs:2
-msgid "Acerca de..."
-msgstr "À propos de..."
-
-#: ../gtk-gui/MainWindow.cs:2 ../gtk-gui/SecretariaDataBase.NewBox.cs:1
-msgid "Nueva categoría"
-msgstr "Nouvelle categorie"
-
-#: ../gtk-gui/MainWindow.cs:2
-msgid "Secretaría Electrial"
-msgstr "Secretaría Electrial"
-
-#: ../gtk-gui/MainWindow.cs:2
+#: ../MainWindow.cs:5
 msgid "Send by email"
 msgstr "Envoyer par email"
 
-#: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
-msgid "Categoría:"
-msgstr "Categorie:"
+#: ../MainWindow.cs:17
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+msgid "Id"
+msgstr "Id"
 
-#: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
-#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
-msgid "Id:"
-msgstr "Id:"
+#: ../MainWindow.cs:18
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+msgid "Date"
+msgstr "Date"
 
-#: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
-#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
-msgid "Nombre:"
-msgstr "Nom:"
+#: ../MainWindow.cs:19
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+msgid "Name"
+msgstr "Nom"
 
-#: ../gtk-gui/SecretariaDataBase.NewRecord.cs:1
-msgid "Fecha de registro:"
-msgstr "Date d'enregistrement:"
+#: ../MainWindow.cs:26
+msgid ""
+"Are you sure you want to delete this document?\n"
+" <b> \"{0}\"</b>.\n"
+" This operation <b>can not be undone</b>"
+msgstr ""
 
-#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
-msgid "Tipo:"
-msgstr "Type:"
-
-#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
-msgid "Entrada"
-msgstr "Entrée"
-
-#: ../gtk-gui/SecretariaDataBase.NewBox.cs:1
-msgid "Salida"
-msgstr "Sortie"
-
-#: ../gtk-gui/SecretariaDataBase.PreferencesDialog.cs:1
+#: ../MainWindow.cs:46
 msgid "Selecciona una Carpeta"
 msgstr "Sélectionner un dossier"
 
-#: ../gtk-gui/SecretariaDataBase.PreferencesDialog.cs:1
-msgid "Registro:"
-msgstr "Registre:"
+#: ../Main.cs:4
+msgid ""
+"An unhandled exception has been thrown. Please, send this error report to "
+"your software maintainer in order to prevent more errors in the future.\n"
+"\n"
+"{0}: {1}\n"
+"{2}"
+msgstr ""
 
-#: ../gtk-gui/SecretariaDataBase.PreferencesDialog.cs:1
-msgid "<b>Archivos</b>"
-msgstr "<b>Fichiers</b>"
+#: ../Main.cs:4
+msgid "Unhandled exception thrown in Secretaria Electrial"
+msgstr ""
+
+#: ../gtk-gui/MainWindow.cs:3
+msgid "Nuevo registro"
+msgstr "Nouveau registre"
+
+#: ../gtk-gui/MainWindow.cs:3
+msgid "Preferencias"
+msgstr "Préférences"
+
+#: ../gtk-gui/MainWindow.cs:3
+msgid "bfghdgdfgdf"
+msgstr ""
+
+#: ../gtk-gui/MainWindow.cs:3
+msgid "gdfgdfgdfg"
+msgstr ""
+
+#: ../gtk-gui/MainWindow.cs:3
+msgid "gdfgdfgdf"
+msgstr ""
+
+#: ../gtk-gui/MainWindow.cs:3
+msgid "Acerca de..."
+msgstr "À propos de..."
+
+#: ../gtk-gui/MainWindow.cs:3
+msgid "Nueva categoría"
+msgstr "Nouvelle categorie"
+
+#: ../gtk-gui/MainWindow.cs:3
+msgid "Secretaría Electrial"
+msgstr "Secretaría Electrial"
+
+#: ../gtk-gui/MainWindow.cs:3
+msgid "Find"
+msgstr ""
+
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#, fuzzy
+msgid "New document"
+msgstr "Document"
+
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#, fuzzy
+msgid "Category"
+msgstr "Categorie:"
+
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+msgid ""
+"Remember you must stamp, sign and scan this document after registering it"
+msgstr ""
+
+#~ msgid "Type"
+#~ msgstr "Type"
+
+#~ msgid ""
+#~ "This operation <b>is going to delete all files</b> at: \"{0}\" and <b>can "
+#~ "not be undone</b>. Are you sure you want to continue?"
+#~ msgstr ""
+#~ "Cette opération <b>détruira touts les fichiers</b> en: \"{0}\", et <b>ne "
+#~ "peut pas être annulée</b>. Est-ce que vous êtes sûrs de continuer?"
+
+#~ msgid "Id:"
+#~ msgstr "Id:"
+
+#~ msgid "Nombre:"
+#~ msgstr "Nom:"
+
+#~ msgid "Fecha de registro:"
+#~ msgstr "Date d'enregistrement:"
+
+#~ msgid "Tipo:"
+#~ msgstr "Type:"
+
+#~ msgid "Entrada"
+#~ msgstr "Entrée"
+
+#~ msgid "Salida"
+#~ msgstr "Sortie"
+
+#~ msgid "Registro:"
+#~ msgstr "Registre:"
+
+#~ msgid "<b>Archivos</b>"
+#~ msgstr "<b>Fichiers</b>"
 
 #~ msgid "Direction"
 #~ msgstr "Direction"
+
