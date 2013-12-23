@@ -1,6 +1,6 @@
 /*
  * Secretaría Electrial
- * Copyright (C) 2013  Rafael Bailón-Ruiz <rafaebailon@ieee.org>
+ * Copyright (C) 2013 Rafael Bailón-Ruiz <rafaebailon@ieee.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,13 +21,12 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System.IO;
 
-namespace SecretariaDataBase
+namespace SecretariaElectrial
 {
 	public class SettingsManager
 	{
 		public enum PresetKeys
 		{        
-			LastComboboxActive,
 			LastFileSystem
 		}
 
