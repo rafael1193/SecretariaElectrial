@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-23 14:29:20+0100\n"
-"PO-Revision-Date: 2013-12-23 02:48:35+0100\n"
+"POT-Creation-Date: 2014-01-06 20:22:06+0100\n"
+"PO-Revision-Date: 2014-01-06 20:23:10+0100\n"
 "Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.org>\n"
 "Language-Team: Español; Castellano\n"
 "Language: es\n"
@@ -13,23 +13,26 @@ msgstr ""
 "X-Generator: MonoDevelop Gettext addin\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../MainWindow.cs:5
+#: ../MainWindow.cs:4
 msgid "Send by email"
 msgstr "Enviar por email"
 
-#: ../MainWindow.cs:17 ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../MainWindow.cs:15
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Id"
 msgstr "Id"
 
-#: ../MainWindow.cs:18 ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../MainWindow.cs:16
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Date"
 msgstr "Fecha"
 
-#: ../MainWindow.cs:19 ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../MainWindow.cs:17
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Name"
 msgstr "Nombre"
 
-#: ../MainWindow.cs:26
+#: ../MainWindow.cs:23
 msgid ""
 "Are you sure you want to delete this document?\n"
 " <b> \"{0}\"</b>.\n"
@@ -39,11 +42,11 @@ msgstr ""
 " <b> \"{0}\"</b>.\n"
 " Esta operación <b>no se puede deshacer</b>."
 
-#: ../MainWindow.cs:46
+#: ../MainWindow.cs:33
 msgid "Selecciona una Carpeta"
 msgstr "Selecciona una carpeta"
 
-#: ../Main.cs:4
+#: ../Main.cs:3
 msgid ""
 "An unhandled exception has been thrown. Please, send this error report to "
 "your software maintainer in order to prevent more errors in the future.\n"
@@ -57,7 +60,7 @@ msgstr ""
 "{0}: {1}\n"
 "{2}"
 
-#: ../Main.cs:4
+#: ../Main.cs:3
 msgid "Unhandled exception thrown in Secretaria Electrial"
 msgstr "Excepción no manejada en Secretaría Electrial"
 
@@ -70,24 +73,8 @@ msgid "Preferencias"
 msgstr "Preferencias"
 
 #: ../gtk-gui/MainWindow.cs:3
-msgid "bfghdgdfgdf"
-msgstr ""
-
-#: ../gtk-gui/MainWindow.cs:3
-msgid "gdfgdfgdfg"
-msgstr ""
-
-#: ../gtk-gui/MainWindow.cs:3
-msgid "gdfgdfgdf"
-msgstr ""
-
-#: ../gtk-gui/MainWindow.cs:3
 msgid "Acerca de..."
 msgstr "Acerca de..."
-
-#: ../gtk-gui/MainWindow.cs:3
-msgid "Nueva categoría"
-msgstr "Nueva categoría"
 
 #: ../gtk-gui/MainWindow.cs:3
 msgid "Secretaría Electrial"
@@ -97,21 +84,35 @@ msgstr "Secretaría Electrial"
 msgid "Find"
 msgstr "Buscar"
 
-#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
-#, fuzzy
-msgid "New document"
-msgstr "Nuevo documento"
-
-#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
-#, fuzzy
-msgid "Category"
-msgstr "Categoría"
-
+#: ../AddDocument.cs:3
 #: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid ""
 "Remember you must stamp, sign and scan this document after registering it"
 msgstr ""
 "Recuerda que debes sellar, firmar y escanear este documento tras registrarlo."
+
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+msgid "New document"
+msgstr "Nuevo documento"
+
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+msgid "Category"
+msgstr "Categoría"
+
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+msgid "Select folder"
+msgstr "Selecciona una carpeta"
+
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+msgid "<b>Path</b>"
+msgstr "<b>Ruta</b>"
+
+#~ msgid "Nueva categoría"
+#~ msgstr "Nueva categoría"
 
 #~ msgid "Type"
 #~ msgstr "Tipo"
@@ -144,9 +145,6 @@ msgstr ""
 #~ msgid "Registro:"
 #~ msgstr "Registro:"
 
-#~ msgid "<b>Archivos</b>"
-#~ msgstr "<b>Archivos</b>"
-
 #~ msgid "Direction"
 #~ msgstr "Dirección"
 
@@ -156,3 +154,4 @@ msgstr ""
 #~ "{0}\n"
 #~ "y <b>no se puede deshacer</b>.\n"
 #~ "¿Está seguro de que desea continuar?"
+

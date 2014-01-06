@@ -19,6 +19,7 @@ public partial class MainWindow
 	private global::Gtk.HBox hbox1;
 	private global::Gtk.Label searchLabel;
 	private global::Gtk.Entry searchEntry;
+	private global::Gtk.Button clearButton;
 	private global::Gtk.VButtonBox vbuttonbox1;
 	private global::Gtk.Button openButton;
 	private global::Gtk.Button emailButton;
@@ -120,14 +121,27 @@ public partial class MainWindow
 		this.hbox1.Add (this.searchEntry);
 		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.searchEntry]));
 		w7.Position = 1;
-		this.vbox2.Add (this.hbox1);
-		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox1]));
-		w8.Position = 1;
+		// Container child hbox1.Gtk.Box+BoxChild
+		this.clearButton = new global::Gtk.Button ();
+		this.clearButton.CanFocus = true;
+		this.clearButton.Name = "clearButton";
+		this.clearButton.UseStock = true;
+		this.clearButton.UseUnderline = true;
+		this.clearButton.Label = "gtk-clear";
+		this.hbox1.Add (this.clearButton);
+		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.clearButton]));
+		w8.PackType = ((global::Gtk.PackType)(1));
+		w8.Position = 2;
 		w8.Expand = false;
 		w8.Fill = false;
+		this.vbox2.Add (this.hbox1);
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox1]));
+		w9.Position = 1;
+		w9.Expand = false;
+		w9.Fill = false;
 		this.hbox2.Add (this.vbox2);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbox2]));
-		w9.Position = 0;
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbox2]));
+		w10.Position = 0;
 		// Container child hbox2.Gtk.Box+BoxChild
 		this.vbuttonbox1 = new global::Gtk.VButtonBox ();
 		this.vbuttonbox1.Name = "vbuttonbox1";
@@ -140,9 +154,9 @@ public partial class MainWindow
 		this.openButton.UseUnderline = true;
 		this.openButton.Label = "gtk-open";
 		this.vbuttonbox1.Add (this.openButton);
-		global::Gtk.ButtonBox.ButtonBoxChild w10 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.openButton]));
-		w10.Expand = false;
-		w10.Fill = false;
+		global::Gtk.ButtonBox.ButtonBoxChild w11 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.openButton]));
+		w11.Expand = false;
+		w11.Fill = false;
 		// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
 		this.emailButton = new global::Gtk.Button ();
 		this.emailButton.CanFocus = true;
@@ -151,18 +165,18 @@ public partial class MainWindow
 		this.emailButton.UseUnderline = true;
 		this.emailButton.Label = "Send by email";
 		this.vbuttonbox1.Add (this.emailButton);
-		global::Gtk.ButtonBox.ButtonBoxChild w11 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.emailButton]));
-		w11.Position = 1;
-		w11.Expand = false;
-		w11.Fill = false;
+		global::Gtk.ButtonBox.ButtonBoxChild w12 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.emailButton]));
+		w12.Position = 1;
+		w12.Expand = false;
+		w12.Fill = false;
 		// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
 		this.hseparator1 = new global::Gtk.HSeparator ();
 		this.hseparator1.Name = "hseparator1";
 		this.vbuttonbox1.Add (this.hseparator1);
-		global::Gtk.ButtonBox.ButtonBoxChild w12 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.hseparator1]));
-		w12.Position = 2;
-		w12.Expand = false;
-		w12.Fill = false;
+		global::Gtk.ButtonBox.ButtonBoxChild w13 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.hseparator1]));
+		w13.Position = 2;
+		w13.Expand = false;
+		w13.Fill = false;
 		// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
 		this.deleteButton = new global::Gtk.Button ();
 		this.deleteButton.CanFocus = true;
@@ -171,22 +185,22 @@ public partial class MainWindow
 		this.deleteButton.UseUnderline = true;
 		this.deleteButton.Label = "gtk-delete";
 		this.vbuttonbox1.Add (this.deleteButton);
-		global::Gtk.ButtonBox.ButtonBoxChild w13 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.deleteButton]));
-		w13.Position = 3;
-		w13.Expand = false;
-		w13.Fill = false;
-		this.hbox2.Add (this.vbuttonbox1);
-		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbuttonbox1]));
-		w14.Position = 1;
+		global::Gtk.ButtonBox.ButtonBoxChild w14 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.deleteButton]));
+		w14.Position = 3;
 		w14.Expand = false;
 		w14.Fill = false;
-		this.vbox1.Add (this.hbox2);
-		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox2]));
+		this.hbox2.Add (this.vbuttonbox1);
+		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbuttonbox1]));
 		w15.Position = 1;
-		this.vbox3.Add (this.vbox1);
-		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.vbox1]));
-		w16.PackType = ((global::Gtk.PackType)(1));
+		w15.Expand = false;
+		w15.Fill = false;
+		this.vbox1.Add (this.hbox2);
+		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox2]));
 		w16.Position = 1;
+		this.vbox3.Add (this.vbox1);
+		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.vbox1]));
+		w17.PackType = ((global::Gtk.PackType)(1));
+		w17.Position = 1;
 		this.Add (this.vbox3);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -201,6 +215,7 @@ public partial class MainWindow
 		this.refreshAction.Activated += new global::System.EventHandler (this.OnRefreshActionActivated);
 		this.categoryComboBox.Changed += new global::System.EventHandler (this.OnCategoryComboBoxChanged);
 		this.searchEntry.Changed += new global::System.EventHandler (this.OnSearchEntryChanged);
+		this.clearButton.Clicked += new global::System.EventHandler (this.OnClearButtonClicked);
 		this.openButton.Clicked += new global::System.EventHandler (this.OnOpenButtonClicked);
 		this.emailButton.Clicked += new global::System.EventHandler (this.OnEmailButtonClicked);
 		this.deleteButton.Clicked += new global::System.EventHandler (this.OnDeleteButtonClicked);

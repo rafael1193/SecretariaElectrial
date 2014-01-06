@@ -17,6 +17,7 @@ namespace SecretariaElectrial
 			// Widget SecretariaElectrial.Preferences
 			this.Name = "SecretariaElectrial.Preferences";
 			this.Title = global::Mono.Unix.Catalog.GetString ("Preferences");
+			this.TypeHint = ((global::Gdk.WindowTypeHint)(1));
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			this.Modal = true;
 			this.Resizable = false;

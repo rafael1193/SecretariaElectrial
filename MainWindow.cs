@@ -114,6 +114,10 @@ public partial class MainWindow: Gtk.Window
 			{
 				categorySelectedInComboBox = registry.Get(combo.ActiveText);
 			}
+			else
+			{
+				categorySelectedInComboBox = null;
+			}
 		}
 		UpdateTreeView();
 	}
@@ -183,6 +187,9 @@ public partial class MainWindow: Gtk.Window
 			{
 				documentListStore.AppendValues(doc.Id.ToString("0000"), doc.RegistrationDate.ToShortDateString(), doc.Name);
 			}
+		}
+		else
+		{
 		}
 	}
 
@@ -267,56 +274,6 @@ public partial class MainWindow: Gtk.Window
 			OnRefreshActionActivated(pref, new EventArgs());
 		}
 		pref.Destroy();
-
-		/*PREFERENCIAS*/
-
-//        SecretariaElectrial.PreferencesDialog pd = new SecretariaElectrial.PreferencesDialog(this, firstrun);
-//        pd.Icon = programIcon;
-//        pd.TransientFor = this;
-//        if (firstrun)
-//        {
-//            pd.canCancel = false;
-//        }
-//        ResponseType resp = (ResponseType)pd.Run();
-//        if (resp == ResponseType.Ok)
-//        {
-//            if (boxList != null)
-//            {
-//                //I don't know why, but deleting items twice is the only form of really delete all them
-//                combobox1.Active = -1;
-//                for (int i = 0; i < boxList.Count; ++i)
-//                {
-//                    combobox1.RemoveText(i);
-//                }
-//                combobox1.Active = -1;
-//                for (int i = 0; i < boxList.Count; ++i)
-//                {
-//                    combobox1.RemoveText(i);
-//                }
-//
-//            }
-//            boxList = pd.BoxList;
-//
-//            foreach (string key in boxList.Keys)
-//            {
-//                combobox1.AppendText(key);
-//            }
-//            combobox1.Active = 0;
-//            currentBoxList = combobox1.ActiveText;
-//
-//            SecretariaElectrial.FileSystem.Box.SortBoxList(boxList [currentBoxList]);
-//            UpdateTreeView(boxList [currentBoxList]);
-//
-//            DocumentTreeView.Selection.Changed += OnTreeViewSelectionChanged;                      
-//        } else if (resp == ResponseType.Cancel)
-//        {
-//            if (firstrun)
-//            {
-//                Application.Quit();
-//            }
-//        }
-//
-//        pd.Destroy();
 	}
 
 	protected void OnEmailButtonClicked(object sender, EventArgs e)
@@ -388,5 +345,12 @@ public partial class MainWindow: Gtk.Window
 
 		UpdateCategoryComboBox();
 		OnCategoryComboBoxChanged(categoryComboBox, new EventArgs());
+
+		UpdateTreeView();
+	}
+
+	protected void OnClearButtonClicked(object sender, EventArgs e)
+	{
+		searchEntry.DeleteText(0, searchEntry.Text.Length);
 	}
 }
