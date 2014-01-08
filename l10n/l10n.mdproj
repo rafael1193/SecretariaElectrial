@@ -17,6 +17,6 @@
         <Translation isoCode="fr" />
       </translations>
     </translations>
-    <ReleaseVersion>0.4</ReleaseVersion>
+    <ReleaseVersion>0.9.91</ReleaseVersion>
   </PropertyGroup>
 </Project>
