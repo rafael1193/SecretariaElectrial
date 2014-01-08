@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-06 20:22:06+0100\n"
-"PO-Revision-Date: 2014-01-06 20:23:10+0100\n"
+"POT-Creation-Date: 2014-01-08 23:34:33+0100\n"
+"PO-Revision-Date: 2014-01-08 23:36:33+0100\n"
 "Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.org>\n"
 "Language-Team: Español; Castellano\n"
 "Language: es\n"
@@ -42,7 +42,7 @@ msgstr ""
 " <b> \"{0}\"</b>.\n"
 " Esta operación <b>no se puede deshacer</b>."
 
-#: ../MainWindow.cs:33
+#: ../MainWindow.cs:31
 msgid "Selecciona una Carpeta"
 msgstr "Selecciona una carpeta"
 
@@ -63,6 +63,19 @@ msgstr ""
 #: ../Main.cs:3
 msgid "Unhandled exception thrown in Secretaria Electrial"
 msgstr "Excepción no manejada en Secretaría Electrial"
+
+#: ../FileSystem/Document.cs:17
+#: ../FileSystem/Document.cs:30
+msgid "Document {0} has {1} as direction code, but is in {2} folder"
+msgstr ""
+"El documento {0} tiene {1} como código de dirección, pero está en la carpeta "
+"{2}"
+
+#: ../FileSystem/Document.cs:19
+#: ../FileSystem/Document.cs:32
+msgid "Document {0} has {1} as group code, but is in {2} folder"
+msgstr ""
+"El documento {0} tiene {1} como código de grupo, pero está en la carpeta {2}"
 
 #: ../gtk-gui/MainWindow.cs:3
 msgid "Nuevo registro"

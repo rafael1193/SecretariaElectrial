@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-06 20:22:06+0100\n"
-"PO-Revision-Date: 2013-07-15 22:16:27+0200\n"
+"POT-Creation-Date: 2014-01-08 23:34:33+0100\n"
+"PO-Revision-Date: 2014-01-08 23:36:31+0100\n"
 "Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.org>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -16,17 +16,20 @@ msgstr ""
 msgid "Send by email"
 msgstr "Send by email"
 
-#: ../MainWindow.cs:15 ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../MainWindow.cs:15
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Id"
 msgstr "Id"
 
-#: ../MainWindow.cs:16 ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../MainWindow.cs:16
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Date"
 msgstr "Date"
 
-#: ../MainWindow.cs:17 ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../MainWindow.cs:17
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: ../MainWindow.cs:23
 msgid ""
@@ -34,8 +37,11 @@ msgid ""
 " <b> \"{0}\"</b>.\n"
 " This operation <b>can not be undone</b>"
 msgstr ""
+"Are you sure you want to delete this document?\n"
+" <b> \"{0}\"</b>.\n"
+" This operation <b>can not be undone</b>"
 
-#: ../MainWindow.cs:33
+#: ../MainWindow.cs:31
 msgid "Selecciona una Carpeta"
 msgstr "Select folder"
 
@@ -47,10 +53,25 @@ msgid ""
 "{0}: {1}\n"
 "{2}"
 msgstr ""
+"An unhandled exception has been thrown. Please, send this error report to "
+"your software maintainer in order to prevent more errors in the future.\n"
+"\n"
+"{0}: {1}\n"
+"{2}"
 
 #: ../Main.cs:3
 msgid "Unhandled exception thrown in Secretaria Electrial"
-msgstr ""
+msgstr "Unhandled exception thrown in Secretaria Electrial"
+
+#: ../FileSystem/Document.cs:17
+#: ../FileSystem/Document.cs:30
+msgid "Document {0} has {1} as direction code, but is in {2} folder"
+msgstr "Document {0} has {1} as direction code, but is in {2} folder"
+
+#: ../FileSystem/Document.cs:19
+#: ../FileSystem/Document.cs:32
+msgid "Document {0} has {1} as group code, but is in {2} folder"
+msgstr "Document {0} has {1} as group code, but is in {2} folder"
 
 #: ../gtk-gui/MainWindow.cs:3
 msgid "Nuevo registro"
@@ -70,36 +91,34 @@ msgstr "Secretaría Electrial"
 
 #: ../gtk-gui/MainWindow.cs:3
 msgid "Find"
-msgstr ""
+msgstr "Find"
 
-#: ../AddDocument.cs:3 ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../AddDocument.cs:3
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid ""
 "Remember you must stamp, sign and scan this document after registering it"
 msgstr ""
+"Remember you must stamp, sign and scan this document after registering it"
 
 #: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
-#, fuzzy
 msgid "New document"
 msgstr "Document"
 
 #: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
-#, fuzzy
 msgid "Category"
-msgstr "Category:"
+msgstr "Category"
 
 #: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
-#, fuzzy
 msgid "Preferences"
 msgstr "Settings"
 
 #: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
 msgid "Select folder"
-msgstr ""
+msgstr "Select folder"
 
 #: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
-#, fuzzy
 msgid "<b>Path</b>"
-msgstr "<b>Files</b>"
+msgstr "<b>Path</b>"
 
 #~ msgid "Nueva categoría"
 #~ msgstr "New category"
@@ -147,3 +166,4 @@ msgstr "<b>Files</b>"
 
 #~ msgid "secretaria-electrial"
 #~ msgstr "Secretaría Electrial"
+
