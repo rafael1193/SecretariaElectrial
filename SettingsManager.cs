@@ -30,7 +30,6 @@ namespace SecretariaElectrial
 			LastFileSystem
 		}
 
-		string path;
 		bool autoflush;
 		Dictionary<string,string> preferences;
 

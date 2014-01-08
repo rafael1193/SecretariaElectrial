@@ -94,13 +94,12 @@ namespace SecretariaElectrial.FileSystem
 			ParentCategory.Remove(this);
 		}
 
-	
 		public static List<Document> LoadFrom(Category parent, string path)
 		{
 			List<Document> documents = new List<Document>();
 
 			//Los documentos pueden estar en directorios o solo un archivo
-			//0000_12_noviembre_2012_nombre guay
+			//00_0000_12_noviembre_2012_nombre guay
 			List<string> directories = new List<string>(Directory.EnumerateDirectories(path));
 
 			foreach (var dire in directories)
@@ -111,22 +110,47 @@ namespace SecretariaElectrial.FileSystem
 				string[] pieces = dir.Split('_');
 				bool ok = true;
 
-				if (pieces.Length == 5)
+				if (pieces.Length == 6)
 				{
+					Category.DirectionCode direc = Category.DirectionCode.Entrada;
+					if (!Category.DirectionCode.TryParse(pieces [0] [0].ToString(), out direc))
+					{
+						ok = false;
+					}else
+					{
+						if(parent.Direction != direc)
+						{
+							ok = false;
+							throw new FileLoadException(String.Format(Mono.Unix.Catalog.GetString("Document {0} has {1} as direction code, but is in {2} folder"), pieces[4], direc.ToString(), parent.Direction.ToString()));
+						}
+					}
+
+					Category.GroupCode grou = Category.GroupCode.AsambleaGeneral;
+					if (!Category.GroupCode.TryParse(pieces [0] [1].ToString(), out grou))
+					{
+						ok = false;
+
+						if(parent.Group != grou)
+						{
+							ok = false;
+							throw new FileLoadException(String.Format(Mono.Unix.Catalog.GetString("Document {0} has {1} as group code, but is in {2} folder"), pieces[4], dire.ToString(), parent.Direction.ToString()));
+						}
+					}
+
 					int id = 0;
-					if (!int.TryParse(pieces[0], out id))
+					if (!int.TryParse(pieces[1], out id))
 					{
 						ok = false;
 					}
 
 					DateTime regDate = DateTime.Now;
 
-					if (!DateTime.TryParse(pieces[1] + "/" + pieces[2] + "/" + pieces[3], System.Globalization.CultureInfo.CreateSpecificCulture("ES-es").DateTimeFormat, System.Globalization.DateTimeStyles.AssumeLocal, out regDate))
+					if (!DateTime.TryParse(pieces[2] + "/" + pieces[3] + "/" + pieces[4], System.Globalization.CultureInfo.CreateSpecificCulture("ES-es").DateTimeFormat, System.Globalization.DateTimeStyles.AssumeLocal, out regDate))
 					{
 						ok = false;
 					}
 
-					string nam = pieces[4];
+					string nam = pieces[5];
 					if (ok == true)
 					{
 						Document doc = new Document(parent, id, nam, regDate);
@@ -151,22 +175,47 @@ namespace SecretariaElectrial.FileSystem
 				string[] pieces = fil.Split('_');
 				bool ok = true;
 
-				if (pieces.Length == 5)
+				if (pieces.Length == 6)
 				{
+					Category.DirectionCode direc = Category.DirectionCode.Entrada;
+					if (!Category.DirectionCode.TryParse(pieces [0] [0].ToString(), out direc))
+					{
+						ok = false;
+					}else
+					{
+						if(parent.Direction != direc)
+						{
+							ok = false;
+							throw new FileLoadException(String.Format(Mono.Unix.Catalog.GetString("Document {0} has {1} as direction code, but is in {2} folder"), pieces[4], direc.ToString(), parent.Direction.ToString()));
+						}
+					}
+
+					Category.GroupCode grou = Category.GroupCode.AsambleaGeneral;
+					if (!Category.GroupCode.TryParse(pieces [0] [1].ToString(), out grou))
+					{
+						ok = false;
+
+						if(parent.Group != grou)
+						{
+							ok = false;
+							throw new FileLoadException(String.Format(Mono.Unix.Catalog.GetString("Document {0} has {1} as group code, but is in {2} folder"), pieces[4], grou.ToString(), parent.Group.ToString()));
+						}
+					}
+
 					int id = 0;
-					if (!int.TryParse(pieces[0], out id))
+					if (!int.TryParse(pieces[1], out id))
 					{
 						ok = false;
 					}
 
 					DateTime regDate = DateTime.Now;
 
-					if (!DateTime.TryParse(pieces[1] + "/" + pieces[2] + "/" + pieces[3], System.Globalization.CultureInfo.CreateSpecificCulture("ES-es").DateTimeFormat, System.Globalization.DateTimeStyles.AssumeLocal, out regDate))
+					if (!DateTime.TryParse(pieces[2] + "/" + pieces[3] + "/" + pieces[4], System.Globalization.CultureInfo.CreateSpecificCulture("ES-es").DateTimeFormat, System.Globalization.DateTimeStyles.AssumeLocal, out regDate))
 					{
 						ok = false;
 					}
 
-					string nam = pieces[4];
+					string nam = pieces[5];
 					if (ok == true)
 					{
 						Document doc = new Document(parent, id, nam, regDate);
@@ -181,10 +230,10 @@ namespace SecretariaElectrial.FileSystem
 
 		public override string ToString()
 		{
-			return string.Format(id.ToString("0000") + separator +
-			registrationDate.Day.ToString() + separator +
-			System.Globalization.CultureInfo.CreateSpecificCulture("es-ES").DateTimeFormat.MonthNames[registrationDate.Month - 1] +
-			separator + registrationDate.Year.ToString() + separator + name.ToString().ToLower());
+			return string.Format(((int)parentCategory.Direction).ToString() + ((int)parentCategory.Group).ToString() +
+				separator + id.ToString("0000") + separator +
+				registrationDate.Day.ToString() + separator + System.Globalization.CultureInfo.CreateSpecificCulture("es-ES").DateTimeFormat.MonthNames[registrationDate.Month - 1] + 
+				separator + registrationDate.Year.ToString() + separator + name.ToString().ToLower());
 		}
 	}
 }
