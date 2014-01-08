@@ -32,6 +32,9 @@ namespace SecretariaElectrial
 			#if !DEBUG
 			GLib.ExceptionManager.UnhandledException+= HandleUnhandledException;
 			#endif
+			#if DEBUG
+			System.Diagnostics.Debugger.Log(0,null,String.Format("Log enabled"));
+			#endif
 			Application.Run();
 
 		}

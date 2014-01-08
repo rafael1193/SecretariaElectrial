@@ -22,7 +22,7 @@ using System.Collections.Generic;
 
 namespace SecretariaElectrial.FileSystem
 {
-	public class Document
+	public class Document:IComparable<Document>
 	{
 		int id;
 		string name;
@@ -92,6 +92,16 @@ namespace SecretariaElectrial.FileSystem
 			string p = System.IO.Path.Combine(parentCategory.ParentRegistry.BasePath, parentCategory.GetDirectionString(), parentCategory.ToString(), ToString());
 			System.IO.Directory.Delete(p);
 			ParentCategory.Remove(this);
+		}
+
+		/// <summary>
+		/// Compares two documents id
+		/// </summary>
+		/// <returns>Comparison</returns>
+		/// <param name="otherDoc">Other document.</param>
+		public int CompareTo(Document otherDoc)
+		{
+			return this.id.CompareTo(otherDoc.id);
 		}
 
 		public static List<Document> LoadFrom(Category parent, string path)
@@ -164,12 +174,15 @@ namespace SecretariaElectrial.FileSystem
 
 			foreach (var file in files)
 			{
-				int lastPoint = file.LastIndexOf('.');
-				string fil = file;
+				int pos = file.LastIndexOf(Path.DirectorySeparatorChar);
+				string filewopath = file.Substring(pos + 1);
+
+				int lastPoint = filewopath.LastIndexOf('.');
+				string fil = filewopath;
 
 				if (lastPoint >= 0)
 				{
-					fil = file.Substring(0, lastPoint - 1);
+					fil = filewopath.Substring(0, lastPoint);
 				}
 
 				string[] pieces = fil.Split('_');
@@ -206,6 +219,9 @@ namespace SecretariaElectrial.FileSystem
 					if (!int.TryParse(pieces[1], out id))
 					{
 						ok = false;
+						#if DEBUG
+						System.Diagnostics.Debugger.Log(0,null,String.Format("Error parsing id:{0}",pieces[1]));
+						#endif
 					}
 
 					DateTime regDate = DateTime.Now;
@@ -213,6 +229,9 @@ namespace SecretariaElectrial.FileSystem
 					if (!DateTime.TryParse(pieces[2] + "/" + pieces[3] + "/" + pieces[4], System.Globalization.CultureInfo.CreateSpecificCulture("ES-es").DateTimeFormat, System.Globalization.DateTimeStyles.AssumeLocal, out regDate))
 					{
 						ok = false;
+						#if DEBUG
+						System.Diagnostics.Debugger.Log(0,null,String.Format("Error parsing date:{0}",pieces[2] + "/" + pieces[3] + "/" + pieces[4]));
+						#endif
 					}
 
 					string nam = pieces[5];
@@ -223,8 +242,11 @@ namespace SecretariaElectrial.FileSystem
 						documents.Add(doc);
 					}
 				}
+				#if DEBUG
+				System.Diagnostics.Debugger.Log(0,null,String.Format("Error parsing file:{0}",fil));
+				#endif
 			}
-
+			documents.Sort();
 			return documents;
 		}
 
