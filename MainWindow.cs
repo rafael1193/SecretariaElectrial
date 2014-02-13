@@ -28,7 +28,7 @@ public partial class MainWindow: Gtk.Window
 	const string DATABASE_PATH = "Secretaría";
 	const string DEFINITION_FILE = "box-definitions.xml";
 	const string DATA_FILE = "document-data.xml";
-	const string FILE_MANAGER = "nautilus";
+	const string FILE_MANAGER = "xdg-open";
 	Gdk.Pixbuf programIcon = new Gdk.Pixbuf(Assembly.GetExecutingAssembly(), "SecretariaElectrial.logo-ico");
 	Registry registry;
 	Category categorySelectedInComboBox = null;
