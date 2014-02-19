@@ -288,7 +288,7 @@ public partial class MainWindow: Gtk.Window
 		Preferences pref = new Preferences(settings,registry);
 		pref.Icon = programIcon;
 		pref.TransientFor = this;
-		if ((ResponseType)pref.Run() == ResponseType.Ok)
+		if ((ResponseType)pref.Run() == ResponseType.Close)
 		{
 			OnRefreshActionActivated(pref, new EventArgs());
 		}

@@ -12,8 +12,7 @@ namespace SecretariaElectrial
 		private global::Gtk.Alignment GtkAlignment3;
 		private global::Gtk.CheckButton readonlyCheckbutton;
 		private global::Gtk.Label GtkLabel4;
-		private global::Gtk.Button buttonCancel;
-		private global::Gtk.Button buttonOk;
+		private global::Gtk.Button buttonClose;
 
 		protected virtual void Build ()
 		{
@@ -87,30 +86,17 @@ namespace SecretariaElectrial
 			w8.BorderWidth = ((uint)(5));
 			w8.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
-			this.buttonCancel = new global::Gtk.Button ();
-			this.buttonCancel.CanDefault = true;
-			this.buttonCancel.CanFocus = true;
-			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.UseStock = true;
-			this.buttonCancel.UseUnderline = true;
-			this.buttonCancel.Label = "gtk-cancel";
-			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w9 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w8 [this.buttonCancel]));
+			this.buttonClose = new global::Gtk.Button ();
+			this.buttonClose.CanDefault = true;
+			this.buttonClose.CanFocus = true;
+			this.buttonClose.Name = "buttonClose";
+			this.buttonClose.UseStock = true;
+			this.buttonClose.UseUnderline = true;
+			this.buttonClose.Label = "gtk-close";
+			this.AddActionWidget (this.buttonClose, -7);
+			global::Gtk.ButtonBox.ButtonBoxChild w9 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w8 [this.buttonClose]));
 			w9.Expand = false;
 			w9.Fill = false;
-			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
-			this.buttonOk = new global::Gtk.Button ();
-			this.buttonOk.CanDefault = true;
-			this.buttonOk.CanFocus = true;
-			this.buttonOk.Name = "buttonOk";
-			this.buttonOk.UseStock = true;
-			this.buttonOk.UseUnderline = true;
-			this.buttonOk.Label = "gtk-ok";
-			this.AddActionWidget (this.buttonOk, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w10 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w8 [this.buttonOk]));
-			w10.Position = 1;
-			w10.Expand = false;
-			w10.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
