@@ -55,6 +55,23 @@ public partial class MainWindow: Gtk.Window
 		DocumentTreeView.Selection.Changed += OnTreeViewSelectionChanged;
 	}
 
+	void UpdateReadOnlyMode()
+	{
+		if (settings.ExistsKey(SettingsManager.PresetKeys.ReadOnlyMode.ToString()))
+		{
+			if (settings.Get(SettingsManager.PresetKeys.ReadOnlyMode.ToString()) == "True")
+			{
+				newAction.Sensitive = false;
+				deleteButton.Sensitive = false;
+			}
+			else
+			{
+				newAction.Sensitive = true;
+				deleteButton.Sensitive = true;
+			}
+		}
+	}
+
 	public void Reload()
 	{
 		//Load config file
@@ -62,6 +79,7 @@ public partial class MainWindow: Gtk.Window
 		try
 		{
 			registry = Registry.LoadFrom(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString()));
+			UpdateReadOnlyMode(); //Check for ReadOnlyMode and change GUI according to setting
 		}
 		catch (Exception e)
 		{
@@ -75,6 +93,7 @@ public partial class MainWindow: Gtk.Window
 			Registry.CreateFileSystem(newPath);
 			registry = Registry.LoadFrom(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString()));
 
+			//FIXME: Set comoboBox active text index that was active before refresh
 			firstrun = true;
 			//preferencesAction.Activate(); //Show preferences window in order to create a filesystem
 			//boxList = SecretariaElectrial.FileSystem.IO.ReadFilesystem(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString())); //Load good filesystem

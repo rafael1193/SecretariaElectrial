@@ -8,6 +8,10 @@ namespace SecretariaElectrial
 		private global::Gtk.Alignment GtkAlignment2;
 		private global::Gtk.FileChooserButton pathFileChooserButton;
 		private global::Gtk.Label GtkLabel2;
+		private global::Gtk.Frame frame1;
+		private global::Gtk.Alignment GtkAlignment3;
+		private global::Gtk.CheckButton readonlyCheckbutton;
+		private global::Gtk.Label GtkLabel4;
 		private global::Gtk.Button buttonCancel;
 		private global::Gtk.Button buttonOk;
 
@@ -49,12 +53,39 @@ namespace SecretariaElectrial
 			w4.Expand = false;
 			w4.Fill = false;
 			w4.Padding = ((uint)(5));
+			// Container child dialog1_VBox.Gtk.Box+BoxChild
+			this.frame1 = new global::Gtk.Frame ();
+			this.frame1.Name = "frame1";
+			this.frame1.ShadowType = ((global::Gtk.ShadowType)(0));
+			// Container child frame1.Gtk.Container+ContainerChild
+			this.GtkAlignment3 = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
+			this.GtkAlignment3.Name = "GtkAlignment3";
+			this.GtkAlignment3.LeftPadding = ((uint)(12));
+			// Container child GtkAlignment3.Gtk.Container+ContainerChild
+			this.readonlyCheckbutton = new global::Gtk.CheckButton ();
+			this.readonlyCheckbutton.CanFocus = true;
+			this.readonlyCheckbutton.Name = "readonlyCheckbutton";
+			this.readonlyCheckbutton.Label = global::Mono.Unix.Catalog.GetString ("Read only mode");
+			this.readonlyCheckbutton.DrawIndicator = true;
+			this.readonlyCheckbutton.UseUnderline = true;
+			this.GtkAlignment3.Add (this.readonlyCheckbutton);
+			this.frame1.Add (this.GtkAlignment3);
+			this.GtkLabel4 = new global::Gtk.Label ();
+			this.GtkLabel4.Name = "GtkLabel4";
+			this.GtkLabel4.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Edit properties</b>");
+			this.GtkLabel4.UseMarkup = true;
+			this.frame1.LabelWidget = this.GtkLabel4;
+			w1.Add (this.frame1);
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(w1 [this.frame1]));
+			w7.Position = 1;
+			w7.Expand = false;
+			w7.Fill = false;
 			// Internal child SecretariaElectrial.Preferences.ActionArea
-			global::Gtk.HButtonBox w5 = this.ActionArea;
-			w5.Name = "dialog1_ActionArea";
-			w5.Spacing = 10;
-			w5.BorderWidth = ((uint)(5));
-			w5.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w8 = this.ActionArea;
+			w8.Name = "dialog1_ActionArea";
+			w8.Spacing = 10;
+			w8.BorderWidth = ((uint)(5));
+			w8.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -64,9 +95,9 @@ namespace SecretariaElectrial
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w6 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w5 [this.buttonCancel]));
-			w6.Expand = false;
-			w6.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w9 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w8 [this.buttonCancel]));
+			w9.Expand = false;
+			w9.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
 			this.buttonOk.CanDefault = true;
@@ -76,17 +107,18 @@ namespace SecretariaElectrial
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-ok";
 			this.AddActionWidget (this.buttonOk, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w7 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w5 [this.buttonOk]));
-			w7.Position = 1;
-			w7.Expand = false;
-			w7.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w10 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w8 [this.buttonOk]));
+			w10.Position = 1;
+			w10.Expand = false;
+			w10.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 299;
-			this.DefaultHeight = 102;
+			this.DefaultHeight = 149;
 			this.Show ();
 			this.pathFileChooserButton.SelectionChanged += new global::System.EventHandler (this.OnPathFileChooserButtonSelectionChanged);
+			this.readonlyCheckbutton.Toggled += new global::System.EventHandler (this.OnReadonlyCheckbuttonToggled);
 		}
 	}
 }

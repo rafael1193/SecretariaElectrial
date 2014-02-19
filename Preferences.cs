@@ -35,6 +35,10 @@ namespace SecretariaElectrial
 			{
 				pathFileChooserButton.SetFilename(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString()));
 			}
+			if(settings.ExistsKey(SettingsManager.PresetKeys.ReadOnlyMode.ToString()))
+			{
+				readonlyCheckbutton.Active = Convert.ToBoolean(settings.Get(SettingsManager.PresetKeys.ReadOnlyMode.ToString()));
+			}
         }
 
 		protected void OnPathFileChooserButtonSelectionChanged(object sender, EventArgs e)
@@ -44,6 +48,11 @@ namespace SecretariaElectrial
 				registry = Registry.LoadFrom(pathFileChooserButton.Filename);
 				settings.Set(SettingsManager.PresetKeys.LastFileSystem.ToString(), pathFileChooserButton.Filename);
 			}
+		}
+
+		protected void OnReadonlyCheckbuttonToggled(object sender, EventArgs e)
+		{
+			settings.Set(SettingsManager.PresetKeys.ReadOnlyMode.ToString(), readonlyCheckbutton.Active.ToString());
 		}
     }
 }

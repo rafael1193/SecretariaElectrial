@@ -27,7 +27,8 @@ namespace SecretariaElectrial
 	{
 		public enum PresetKeys
 		{        
-			LastFileSystem
+			LastFileSystem,
+			ReadOnlyMode
 		}
 
 		bool autoflush;
