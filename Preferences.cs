@@ -65,7 +65,7 @@ namespace SecretariaElectrial
 			}
 			else
 			{
-				Gtk.MessageDialog mes = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal, Gtk.MessageType.Info, Gtk.ButtonsType.Ok, Mono.Unix.Catalog.GetString("You must choose a path for registry files"));
+				Gtk.MessageDialog mes = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal, Gtk.MessageType.Info, Gtk.ButtonsType.Ok, Mono.Unix.Catalog.GetString("You must choose a valid path for registry files."));
 				if ((Gtk.ResponseType)mes.Run() == Gtk.ResponseType.Ok)
 				{
 					mes.Destroy();

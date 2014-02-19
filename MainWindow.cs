@@ -93,17 +93,24 @@ public partial class MainWindow: Gtk.Window
 		}
 		catch (Exception e)
 		{
-//			Gtk.MessageDialog msg = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.Close, true, string.Format(e.Message.ToString()));
-//			if ((ResponseType)msg.Run() == ResponseType.Close)
-//			{
-//				msg.Destroy();
-//			}
-//			string newPath = System.IO.Path.Combine(Environment.CurrentDirectory, "registro");
-//			settings.Set(SettingsManager.PresetKeys.LastFileSystem.ToString(), newPath); //FIXME: mostrar ventana de opciones
-//			Registry.CreateFileSystem(newPath);
-//			registry = Registry.LoadFrom(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString()));
+			//There is a bug in Gtk# (or Gtk) for Windows that crash the program when selecting a path when there wasn't any valid selected
+			if (System.Environment.OSVersion.Platform == PlatformID.Win32NT)
+			{
+				Gtk.MessageDialog msg = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.Close, true, Mono.Unix.Catalog.GetString("You must choose a valid path for registry files."));
+				if ((ResponseType)msg.Run() == ResponseType.Close)
+				{
+					msg.Destroy();
+				}
+				string newPath = System.IO.Path.Combine(Environment.CurrentDirectory, "registro");
+				settings.Set(SettingsManager.PresetKeys.LastFileSystem.ToString(), newPath); //FIXME: mostrar ventana de opciones
+				Registry.CreateFileSystem(newPath);
+				registry = Registry.LoadFrom(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString()));
+			}
+			else
+			{
+				preferencesAction.Activate();
+			}
 
-			preferencesAction.Activate();
 
 			//FIXME: Set comoboBox active text index that was active before refresh
 			firstrun = true;

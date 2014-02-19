@@ -26,7 +26,7 @@ namespace SecretariaElectrial
 		public static void Main(string[] args)
 		{
 			Application.Init();
-			Catalog.Init("l10n", "./locale");
+			Catalog.Init("l10n", "locale");
 			MainWindow win = new MainWindow();
 			win.Show();
 			#if !DEBUG
