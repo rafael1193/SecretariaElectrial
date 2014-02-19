@@ -53,8 +53,6 @@
     <child>
       <widget class="Gtk.VBox" id="vbox3">
         <property name="MemberName" />
-        <property name="Spacing">5</property>
-        <property name="BorderWidth">5</property>
         <child>
           <widget class="Gtk.Toolbar" id="toolbar1">
             <property name="MemberName" />
@@ -77,7 +75,8 @@
         <child>
           <widget class="Gtk.VBox" id="vbox1">
             <property name="MemberName" />
-            <property name="Spacing">5</property>
+            <property name="Spacing">6</property>
+            <property name="BorderWidth">6</property>
             <child>
               <widget class="Gtk.ComboBox" id="categoryComboBox">
                 <property name="MemberName" />
@@ -640,7 +639,8 @@
             <property name="UseStock">True</property>
             <property name="Type">StockItem</property>
             <property name="StockId">gtk-close</property>
-            <property name="ResponseId">-7</property>
+            <property name="ResponseId">-1</property>
+            <signal name="Clicked" handler="OnButtonCloseClicked" />
             <property name="label">gtk-close</property>
           </widget>
           <packing>

@@ -54,6 +54,25 @@ namespace SecretariaElectrial
 		{
 			settings.Set(SettingsManager.PresetKeys.ReadOnlyMode.ToString(), readonlyCheckbutton.Active.ToString());
 		}
+
+
+		protected void OnButtonCloseClicked(object sender, EventArgs e)
+		{
+			//Check if preferences are valid
+			if (pathFileChooserButton.Filename != null)
+			{
+				this.Respond(Gtk.ResponseType.Close);
+			}
+			else
+			{
+				Gtk.MessageDialog mes = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal, Gtk.MessageType.Info, Gtk.ButtonsType.Ok, Mono.Posix.Catalog.GetString("You must choose a path for registry files"));
+				if ((Gtk.ResponseType)mes.Run() == Gtk.ResponseType.Ok)
+				{
+					mes.Destroy();
+				}
+			}
+
+		}
     }
 }
 

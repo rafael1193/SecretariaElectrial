@@ -93,7 +93,7 @@ namespace SecretariaElectrial
 			this.buttonClose.UseStock = true;
 			this.buttonClose.UseUnderline = true;
 			this.buttonClose.Label = "gtk-close";
-			this.AddActionWidget (this.buttonClose, -7);
+			w8.Add (this.buttonClose);
 			global::Gtk.ButtonBox.ButtonBoxChild w9 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w8 [this.buttonClose]));
 			w9.Expand = false;
 			w9.Fill = false;
@@ -105,6 +105,7 @@ namespace SecretariaElectrial
 			this.Show ();
 			this.pathFileChooserButton.SelectionChanged += new global::System.EventHandler (this.OnPathFileChooserButtonSelectionChanged);
 			this.readonlyCheckbutton.Toggled += new global::System.EventHandler (this.OnReadonlyCheckbuttonToggled);
+			this.buttonClose.Clicked += new global::System.EventHandler (this.OnButtonCloseClicked);
 		}
 	}
 }

@@ -52,8 +52,6 @@ public partial class MainWindow
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.vbox3 = new global::Gtk.VBox ();
 		this.vbox3.Name = "vbox3";
-		this.vbox3.Spacing = 5;
-		this.vbox3.BorderWidth = ((uint)(5));
 		// Container child vbox3.Gtk.Box+BoxChild
 		this.UIManager.AddUiFromString ("<ui><toolbar name='toolbar1'><toolitem name='newAction' action='newAction'/><toolitem name='refreshAction' action='refreshAction'/><toolitem name='preferencesAction' action='preferencesAction'/><toolitem name='infoAction' action='infoAction'/></toolbar></ui>");
 		this.toolbar1 = ((global::Gtk.Toolbar)(this.UIManager.GetWidget ("/toolbar1")));
@@ -68,7 +66,8 @@ public partial class MainWindow
 		// Container child vbox3.Gtk.Box+BoxChild
 		this.vbox1 = new global::Gtk.VBox ();
 		this.vbox1.Name = "vbox1";
-		this.vbox1.Spacing = 5;
+		this.vbox1.Spacing = 6;
+		this.vbox1.BorderWidth = ((uint)(6));
 		// Container child vbox1.Gtk.Box+BoxChild
 		this.categoryComboBox = global::Gtk.ComboBox.NewText ();
 		this.categoryComboBox.Name = "categoryComboBox";

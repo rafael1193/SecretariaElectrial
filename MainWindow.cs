@@ -83,15 +83,17 @@ public partial class MainWindow: Gtk.Window
 		}
 		catch (Exception e)
 		{
-			Gtk.MessageDialog msg = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.Close, true, string.Format(e.Message.ToString()));
-			if ((ResponseType)msg.Run() == ResponseType.Close)
-			{
-				msg.Destroy();
-			}
-			string newPath = System.IO.Path.Combine(Environment.CurrentDirectory, "registro");
-			settings.Set(SettingsManager.PresetKeys.LastFileSystem.ToString(), newPath); //FIXME: mostrar ventana de opciones
-			Registry.CreateFileSystem(newPath);
-			registry = Registry.LoadFrom(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString()));
+//			Gtk.MessageDialog msg = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Warning, ButtonsType.Close, true, string.Format(e.Message.ToString()));
+//			if ((ResponseType)msg.Run() == ResponseType.Close)
+//			{
+//				msg.Destroy();
+//			}
+//			string newPath = System.IO.Path.Combine(Environment.CurrentDirectory, "registro");
+//			settings.Set(SettingsManager.PresetKeys.LastFileSystem.ToString(), newPath); //FIXME: mostrar ventana de opciones
+//			Registry.CreateFileSystem(newPath);
+//			registry = Registry.LoadFrom(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString()));
+
+			preferencesAction.Activate();
 
 			//FIXME: Set comoboBox active text index that was active before refresh
 			firstrun = true;
