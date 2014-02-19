@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-08 23:34:33+0100\n"
-"PO-Revision-Date: 2014-01-08 23:36:33+0100\n"
+"POT-Creation-Date: 2014-02-19 09:39:17+0100\n"
+"PO-Revision-Date: 2014-02-19 09:42:09+0100\n"
 "Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.org>\n"
 "Language-Team: Español; Castellano\n"
 "Language: es\n"
@@ -17,22 +17,22 @@ msgstr ""
 msgid "Send by email"
 msgstr "Enviar por email"
 
-#: ../MainWindow.cs:15
+#: ../MainWindow.cs:16
 #: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Id"
 msgstr "Id"
 
-#: ../MainWindow.cs:16
+#: ../MainWindow.cs:17
 #: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Date"
 msgstr "Fecha"
 
-#: ../MainWindow.cs:17
+#: ../MainWindow.cs:18
 #: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Name"
 msgstr "Nombre"
 
-#: ../MainWindow.cs:23
+#: ../MainWindow.cs:24
 msgid ""
 "Are you sure you want to delete this document?\n"
 " <b> \"{0}\"</b>.\n"
@@ -42,7 +42,7 @@ msgstr ""
 " <b> \"{0}\"</b>.\n"
 " Esta operación <b>no se puede deshacer</b>."
 
-#: ../MainWindow.cs:31
+#: ../MainWindow.cs:32
 msgid "Selecciona una Carpeta"
 msgstr "Selecciona una carpeta"
 
@@ -123,6 +123,14 @@ msgstr "Selecciona una carpeta"
 #: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
 msgid "<b>Path</b>"
 msgstr "<b>Ruta</b>"
+
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+msgid "Read only mode"
+msgstr "Modo solo lectura"
+
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+msgid "<b>Edit properties</b>"
+msgstr "<b>Preferencias de edición</b>"
 
 #~ msgid "Nueva categoría"
 #~ msgstr "Nueva categoría"

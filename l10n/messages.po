@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-01-08 23:34:33+0100\n"
-"PO-Revision-Date: 2014-01-08 23:34:33+0100\n"
+"POT-Creation-Date: 2014-02-19 09:39:17+0100\n"
+"PO-Revision-Date: 2014-02-19 09:39:17+0100\n"
 "Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -14,29 +14,29 @@ msgstr ""
 msgid "Send by email"
 msgstr ""
 
-#: ../MainWindow.cs:15
+#: ../MainWindow.cs:16
 #: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Id"
 msgstr ""
 
-#: ../MainWindow.cs:16
+#: ../MainWindow.cs:17
 #: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Date"
 msgstr ""
 
-#: ../MainWindow.cs:17
+#: ../MainWindow.cs:18
 #: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
 msgid "Name"
 msgstr ""
 
-#: ../MainWindow.cs:23
+#: ../MainWindow.cs:24
 msgid ""
 "Are you sure you want to delete this document?\n"
 " <b> \"{0}\"</b>.\n"
 " This operation <b>can not be undone</b>"
 msgstr ""
 
-#: ../MainWindow.cs:31
+#: ../MainWindow.cs:32
 msgid "Selecciona una Carpeta"
 msgstr ""
 
@@ -107,5 +107,13 @@ msgstr ""
 
 #: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
 msgid "<b>Path</b>"
+msgstr ""
+
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+msgid "Read only mode"
+msgstr ""
+
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+msgid "<b>Edit properties</b>"
 msgstr ""
 
