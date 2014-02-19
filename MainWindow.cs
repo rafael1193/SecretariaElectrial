@@ -28,7 +28,7 @@ public partial class MainWindow: Gtk.Window
 	const string DATABASE_PATH = "Secretaría";
 	const string DEFINITION_FILE = "box-definitions.xml";
 	const string DATA_FILE = "document-data.xml";
-	const string FILE_MANAGER = "xdg-open";
+	readonly string FILE_MANAGER;
 	Gdk.Pixbuf programIcon = new Gdk.Pixbuf(Assembly.GetExecutingAssembly(), "SecretariaElectrial.logo-ico");
 	Registry registry;
 	Category categorySelectedInComboBox = null;
@@ -43,6 +43,16 @@ public partial class MainWindow: Gtk.Window
 	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
 		Build();
+
+		//Windows doesn't know anything about FreeDesktop standards
+		if (System.Environment.OSVersion.Platform == PlatformID.Win32NT)
+		{
+			FILE_MANAGER = "explorer.exe";
+		}
+		else
+		{
+			FILE_MANAGER = "xdg-open";
+		}
 
 		Reload();
 
