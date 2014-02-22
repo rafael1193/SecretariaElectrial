@@ -94,6 +94,7 @@ public partial class MainWindow: Gtk.Window
 		catch (Exception e)
 		{
 			//There is a bug in Gtk# (or Gtk) for Windows that crash the program when selecting a path when there wasn't any valid selected
+			//This condition is a workaround for the bug
 			if (System.Environment.OSVersion.Platform == PlatformID.Win32NT)
 			{
 				Gtk.MessageDialog msg = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Info, ButtonsType.Close, true, Mono.Unix.Catalog.GetString("You must choose a valid path for registry files."));
@@ -106,7 +107,7 @@ public partial class MainWindow: Gtk.Window
 				Registry.CreateFileSystem(newPath);
 				registry = Registry.LoadFrom(settings.Get(SettingsManager.PresetKeys.LastFileSystem.ToString()));
 			}
-			else
+			else //When we are not on Windows, show preferences windows a let the user select a folder
 			{
 				preferencesAction.Activate();
 			}
@@ -122,7 +123,7 @@ public partial class MainWindow: Gtk.Window
 
 	private void UpdateCategoryComboBox()
 	{
-		bool sel = false;
+		bool withContent = false;
 		int n = nElementsInComboBox;
 		for(int i = 0; i < n; ++i)
 		{
@@ -133,9 +134,9 @@ public partial class MainWindow: Gtk.Window
 		{
 			categoryComboBox.AppendText(cat.ToString());
 			++nElementsInComboBox;
-			sel = true;
+			withContent = true;
 		}
-		if (sel)
+		if (withContent) //If there is not any selectable category, don't set Active, because it will fail
 		{
 			categoryComboBox.Active = 0;
 			categorySelectedInComboBox = registry.Get(categoryComboBox.ActiveText);
@@ -257,8 +258,12 @@ public partial class MainWindow: Gtk.Window
 					documentSelectedInTreeView.Delete();
 					UpdateTreeView();
 					UpdateCategoryComboBox();
+					msg.Destroy();
 				}
-				msg.Destroy();
+				else
+				{
+					msg.Destroy();
+				}
 			}
 		}
 	}
