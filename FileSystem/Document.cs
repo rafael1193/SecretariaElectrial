@@ -157,7 +157,7 @@ namespace SecretariaElectrial.FileSystem
 						if(parent.Direction != direc)
 						{
 							ok = false;
-							throw new FileLoadException(String.Format(Mono.Unix.Catalog.GetString("Document {0} has {1} as direction code, but is in {2} folder"), pieces[4], direc.ToString(), parent.Direction.ToString()));
+							throw new FileLoadException(String.Format(Mono.Unix.Catalog.GetString("Document {0} has {1} as direction code, but is in {2} folder"), pieces[5], direc.ToString(), parent.Direction.ToString()));
 						}
 					}
 
@@ -169,7 +169,7 @@ namespace SecretariaElectrial.FileSystem
 						if(parent.Group != grou)
 						{
 							ok = false;
-							throw new FileLoadException(String.Format(Mono.Unix.Catalog.GetString("Document {0} has {1} as group code, but is in {2} folder"), pieces[4], dire.ToString(), parent.Direction.ToString()));
+							throw new FileLoadException(String.Format(Mono.Unix.Catalog.GetString("Document {0} has {1} as group code, but is in {2} folder"), pieces[5], dire.ToString(), parent.Direction.ToString()));
 						}
 					}
 
