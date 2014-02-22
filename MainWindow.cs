@@ -269,6 +269,7 @@ public partial class MainWindow: Gtk.Window
 				if ((ResponseType)msg.Run() == ResponseType.Yes)
 				{
 					documentSelectedInTreeView.Delete();
+					documentSelectedInTreeView = null; //This document has been deleted, invalidate it to prevent redeletion tries.
 					UpdateTreeView();
 					UpdateCategoryComboBox();
 					msg.Destroy();
