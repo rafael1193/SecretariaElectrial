@@ -125,6 +125,8 @@ public partial class MainWindow: Gtk.Window
 	{
 		bool withContent = false;
 		int n = nElementsInComboBox;
+		int lastActiveInComboBox = categoryComboBox.Active;
+
 		for(int i = 0; i < n; ++i)
 		{
 			categoryComboBox.RemoveText(0);
@@ -136,10 +138,21 @@ public partial class MainWindow: Gtk.Window
 			++nElementsInComboBox;
 			withContent = true;
 		}
-		if (withContent) //If there is not any selectable category, don't set Active, because it will fail
+		if (withContent) //If there is not any selectable category, don't set any Active item because it will fail
 		{
-			categoryComboBox.Active = 0;
-			categorySelectedInComboBox = registry.Get(categoryComboBox.ActiveText);
+			//If element count hasn't changed then maintain the Active item. It's a trivial solution for this annoying behaviour
+			if (n == nElementsInComboBox)
+			{
+				categoryComboBox.Active = lastActiveInComboBox;
+			}
+			else
+			{
+				categoryComboBox.Active = 0;
+			}
+			if (categoryComboBox.ActiveText != null)
+			{
+				categorySelectedInComboBox = registry.Get(categoryComboBox.ActiveText);
+			}
 		}
 	}
 
