@@ -308,7 +308,7 @@ public partial class MainWindow: Gtk.Window
 		about.TranslatorCredits = "English:\n\tRafael Bailón-Ruiz <rafaelbailon@ieee.org>\nEspañol:\n\tRafael Bailón-Ruiz <rafaelbailon@ieee.org>\nFrançais:\n\tRafael Bailón-Ruiz <rafaelbailon@ieee.org>";
 		about.Copyright = "Copyright © 2013-2014 Asociación Electrial";
 		about.WebsiteLabel = "http://www.ugr.es/~electrial";
-		about.Version = "0.9.94";
+		about.Version = "1.0.0";
 		about.Icon = programIcon;
 		about.Logo = programIcon;
 		about.License = "This program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see <http://www.gnu.org/licenses/>.\n";
@@ -410,4 +410,9 @@ public partial class MainWindow: Gtk.Window
 	{
 		searchEntry.DeleteText(0, searchEntry.Text.Length);
 	}
+    protected void OnDocumentTreeViewRowActivated(object o, RowActivatedArgs args)
+    {
+        OnOpenButtonClicked(this, args);
+    }
+
 }

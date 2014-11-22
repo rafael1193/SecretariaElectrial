@@ -45,8 +45,12 @@ namespace SecretariaElectrial
 		{
 			if (pathFileChooserButton.Filename != null)
 			{
-				registry = Registry.LoadFrom(pathFileChooserButton.Filename);
-				settings.Set(SettingsManager.PresetKeys.LastFileSystem.ToString(), pathFileChooserButton.Filename);
+				try {
+					registry = Registry.LoadFrom(pathFileChooserButton.Filename);
+					settings.Set(SettingsManager.PresetKeys.LastFileSystem.ToString(), pathFileChooserButton.Filename);
+				} catch (Exception ex) {
+
+				}
 			}
 		}
 

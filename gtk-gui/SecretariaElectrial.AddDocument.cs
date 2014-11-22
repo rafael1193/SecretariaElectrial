@@ -5,16 +5,27 @@ namespace SecretariaElectrial
 	public partial class AddDocument
 	{
 		private global::Gtk.Table table2;
+		
 		private global::Gtk.ComboBox categoryComboBox;
+		
 		private global::Gtk.Calendar dateCalendar;
+		
 		private global::Gtk.Entry idEntry;
+		
 		private global::Gtk.Label idLabel;
+		
 		private global::Gtk.Label label3;
+		
 		private global::Gtk.Label label4;
+		
 		private global::Gtk.Label label5;
+		
 		private global::Gtk.Entry nameEntry;
+		
 		private global::Gtk.Label rememberLabel;
+		
 		private global::Gtk.Button buttonCancel;
+		
 		private global::Gtk.Button buttonOk;
 
 		protected virtual void Build ()

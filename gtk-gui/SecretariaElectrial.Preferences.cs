@@ -5,13 +5,21 @@ namespace SecretariaElectrial
 	public partial class Preferences
 	{
 		private global::Gtk.Frame pathFrame;
+		
 		private global::Gtk.Alignment GtkAlignment2;
+		
 		private global::Gtk.FileChooserButton pathFileChooserButton;
+		
 		private global::Gtk.Label GtkLabel2;
+		
 		private global::Gtk.Frame frame1;
+		
 		private global::Gtk.Alignment GtkAlignment3;
+		
 		private global::Gtk.CheckButton readonlyCheckbutton;
+		
 		private global::Gtk.Label GtkLabel4;
+		
 		private global::Gtk.Button buttonClose;
 
 		protected virtual void Build ()

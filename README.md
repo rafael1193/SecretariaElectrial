@@ -1,8 +1,25 @@
 SecretariaElectrial
 ===================
 
-Secretariat registry organization software.
+Secretariat registry organization software. It aims to be simple and easy to use it.
 Made for Asociación Electrial, Univerisidad de Granada, Spain
+
+Installing and compiling instructions
+-------------------------------------
+
+Dependencies are needed
+
+```
+sudo apt-get install mono-runtime gtk-sharp2 libmono-system-xml-linq4.0-cil
+```
+
+If you use a different operating system, check your repositories for equivalent packages
+
+For compiling, you may also need monodevelop, that can be installed executing the following statment on a terminal:
+
+```
+sudo apt-get install monodevelop
+```
 
 Licencing
 ---------

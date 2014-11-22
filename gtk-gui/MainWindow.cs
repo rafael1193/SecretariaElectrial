@@ -4,26 +4,47 @@
 public partial class MainWindow
 {
 	private global::Gtk.UIManager UIManager;
+	
 	private global::Gtk.Action newAction;
+	
 	private global::Gtk.Action preferencesAction;
+	
 	private global::Gtk.Action infoAction;
+	
 	private global::Gtk.Action refreshAction;
+	
 	private global::Gtk.VBox vbox3;
+	
 	private global::Gtk.Toolbar toolbar1;
+	
 	private global::Gtk.VBox vbox1;
+	
 	private global::Gtk.ComboBox categoryComboBox;
+	
 	private global::Gtk.HBox hbox2;
+	
 	private global::Gtk.VBox vbox2;
+	
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
+	
 	private global::Gtk.TreeView DocumentTreeView;
+	
 	private global::Gtk.HBox hbox1;
+	
 	private global::Gtk.Label searchLabel;
+	
 	private global::Gtk.Entry searchEntry;
+	
 	private global::Gtk.Button clearButton;
+	
 	private global::Gtk.VButtonBox vbuttonbox1;
+	
 	private global::Gtk.Button openButton;
+	
 	private global::Gtk.Button emailButton;
+	
 	private global::Gtk.HSeparator hseparator1;
+	
 	private global::Gtk.Button deleteButton;
 
 	protected virtual void Build ()
@@ -213,6 +234,7 @@ public partial class MainWindow
 		this.infoAction.Activated += new global::System.EventHandler (this.OnInfoActionActivated);
 		this.refreshAction.Activated += new global::System.EventHandler (this.OnRefreshActionActivated);
 		this.categoryComboBox.Changed += new global::System.EventHandler (this.OnCategoryComboBoxChanged);
+		this.DocumentTreeView.RowActivated += new global::Gtk.RowActivatedHandler (this.OnDocumentTreeViewRowActivated);
 		this.searchEntry.Changed += new global::System.EventHandler (this.OnSearchEntryChanged);
 		this.clearButton.Clicked += new global::System.EventHandler (this.OnClearButtonClicked);
 		this.openButton.Clicked += new global::System.EventHandler (this.OnOpenButtonClicked);

@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ItemType>TranslationProject</ItemType>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{66DDC541-470C-45D0-9B76-0E54AB38E19B}</ProjectGuid>
     <relPath>locale</relPath>
@@ -17,6 +17,6 @@
         <Translation isoCode="fr" />
       </translations>
     </translations>
-    <ReleaseVersion>0.9.94</ReleaseVersion>
+    <ReleaseVersion>1.0.0</ReleaseVersion>
   </PropertyGroup>
 </Project>

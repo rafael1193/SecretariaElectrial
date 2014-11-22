@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-02-19 16:59:41+0100\n"
-"PO-Revision-Date: 2014-02-19 16:59:41+0100\n"
-"Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.com>\n"
+"POT-Creation-Date: 2014-11-22 16:28:03+0100\n"
+"PO-Revision-Date: 2014-11-22 16:28:03+0100\n"
+"Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -19,29 +19,29 @@ msgstr ""
 msgid "You must choose a valid path for registry files."
 msgstr ""
 
-#: ../MainWindow.cs:18
-#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../MainWindow.cs:19
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:1
 msgid "Id"
 msgstr ""
 
-#: ../MainWindow.cs:19
-#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../MainWindow.cs:20
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:1
 msgid "Date"
 msgstr ""
 
-#: ../MainWindow.cs:20
-#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../MainWindow.cs:21
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:1
 msgid "Name"
 msgstr ""
 
-#: ../MainWindow.cs:26
+#: ../MainWindow.cs:27
 msgid ""
 "Are you sure you want to delete this document?\n"
 " <b> \"{0}\"</b>.\n"
 " This operation <b>can not be undone</b>"
 msgstr ""
 
-#: ../MainWindow.cs:34
+#: ../MainWindow.cs:35
 msgid "Selecciona una Carpeta"
 msgstr ""
 
@@ -58,67 +58,67 @@ msgstr ""
 msgid "Unhandled exception thrown in Secretaria Electrial"
 msgstr ""
 
-#: ../FileSystem/Document.cs:17
-#: ../FileSystem/Document.cs:30
+#: ../FileSystem/Document.cs:19
+#: ../FileSystem/Document.cs:32
 msgid "Document {0} has {1} as direction code, but is in {2} folder"
 msgstr ""
 
-#: ../FileSystem/Document.cs:19
-#: ../FileSystem/Document.cs:32
+#: ../FileSystem/Document.cs:21
+#: ../FileSystem/Document.cs:34
 msgid "Document {0} has {1} as group code, but is in {2} folder"
 msgstr ""
 
-#: ../gtk-gui/MainWindow.cs:3
+#: ../gtk-gui/MainWindow.cs:2
 msgid "Nuevo registro"
 msgstr ""
 
-#: ../gtk-gui/MainWindow.cs:3
+#: ../gtk-gui/MainWindow.cs:2
 msgid "Preferencias"
 msgstr ""
 
-#: ../gtk-gui/MainWindow.cs:3
+#: ../gtk-gui/MainWindow.cs:2
 msgid "Acerca de..."
 msgstr ""
 
-#: ../gtk-gui/MainWindow.cs:3
+#: ../gtk-gui/MainWindow.cs:2
 msgid "Secretaría Electrial"
 msgstr ""
 
-#: ../gtk-gui/MainWindow.cs:3
+#: ../gtk-gui/MainWindow.cs:2
 msgid "Find"
 msgstr ""
 
 #: ../AddDocument.cs:3
-#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:1
 msgid ""
 "Remember you must stamp, sign and scan this document after registering it"
 msgstr ""
 
-#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:1
 msgid "New document"
 msgstr ""
 
-#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:2
+#: ../gtk-gui/SecretariaElectrial.AddDocument.cs:1
 msgid "Category"
 msgstr ""
 
-#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:1
 msgid "Preferences"
 msgstr ""
 
-#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:1
 msgid "Select folder"
 msgstr ""
 
-#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:1
 msgid "<b>Path</b>"
 msgstr ""
 
-#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:1
 msgid "Read only mode"
 msgstr ""
 
-#: ../gtk-gui/SecretariaElectrial.Preferences.cs:2
+#: ../gtk-gui/SecretariaElectrial.Preferences.cs:1
 msgid "<b>Edit properties</b>"
 msgstr ""
 

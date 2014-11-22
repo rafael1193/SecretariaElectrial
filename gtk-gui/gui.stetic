@@ -110,6 +110,7 @@
                             <property name="CanFocus">True</property>
                             <property name="ShowScrollbars">True</property>
                             <property name="SearchColumn">0</property>
+                            <signal name="RowActivated" handler="OnDocumentTreeViewRowActivated" />
                           </widget>
                         </child>
                       </widget>
